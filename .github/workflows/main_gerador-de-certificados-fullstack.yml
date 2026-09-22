@@ -50,7 +50,7 @@ jobs:
           dotnet-version: "10.x"
 
       - name: Restore dependencies
-        run: dotnet restore src/Api/GeradorDeCertificadosOnline.Api.csproj
+        run: dotnet restore src/Api/GeradorCertificadosOnline.Api.csproj
 
       - name: Install Entity Framework CLI
         run: dotnet tool install --global dotnet-ef
@@ -61,8 +61,8 @@ jobs:
           NewRelic__LicenseKey: ${{ secrets.NEWRELIC_LICENSE_KEY }}
         run: |
           dotnet ef database update `
-            --project src/Infraestrutura/GeradorDeCertificadosOnline.Infraestrutura.csproj `
-            --startup-project src/Api/GeradorDeCertificadosOnline.Api.csproj `
+            --project src/Infraestrutura/GeradorCertificadosOnline.Infraestrutura.csproj `
+            --startup-project src/Api/GeradorCertificadosOnline.Api.csproj `
             --configuration Release `
             --connection "$env:SQLSERVER_CONNECTIONSTRING"
 
