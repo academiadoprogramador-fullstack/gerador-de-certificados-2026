@@ -16,12 +16,13 @@ builder.Services.AddOpenApiServices();
 
 var app = builder.Build();
 
+// Habilita Swagger em Produção (não recomendado para APIs privadas em casos reais)
+app.MapOpenApi().AllowAnonymous();
+app.UseSwaggerUI(options =>
+    options.SwaggerEndpoint("/openapi/v1.json", "GeradorCertificadosOnline.Api v1"));
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi().AllowAnonymous();
-    app.UseSwaggerUI(options =>
-        options.SwaggerEndpoint("/openapi/v1.json", "GeradorCertificadosOnline.Api v1"));
-
     using var scope = app.Services.CreateScope();
 
     var dbContext = scope.ServiceProvider.GetRequiredService<CertificadosDbContext>();
@@ -41,5 +42,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-public partial class Program;
