@@ -55,6 +55,9 @@ jobs:
       - name: Install Entity Framework CLI
         run: dotnet tool install --global dotnet-ef
 
+      - name: Restore tools
+        run: dotnet tool restore
+
       - name: Apply ORM migrations to AzureSQL
         env:
           SQLSERVER_CONNECTIONSTRING: ${{ secrets.SQLSERVER_CONNECTIONSTRING }}
