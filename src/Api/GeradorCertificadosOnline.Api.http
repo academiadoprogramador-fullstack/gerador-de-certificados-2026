@@ -1,0 +1,160 @@
+@Api_HostAddress = http://localhost:5146
+
+### Documento OpenAPI (confirma que a API está no ar)
+GET {{Api_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+### Login com credenciais inválidas -> 401
+POST {{Api_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "instrutor@exemplo.com",
+  "senha": "senha-errada"
+}
+
+### Cadastro de usuário no Identity
+# Execute uma vez por email. A senha precisa ter pelo menos 8 caracteres,
+# um dígito e um caractere não alfanumérico.
+POST {{Api_HostAddress}}/auth/cadastro
+Content-Type: application/json
+
+{
+  "email": "instrutor@example.com",
+  "senha": "Teste@123"
+}
+
+### Login com usuário cadastrado no Identity
+# @name login
+POST {{Api_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "instrutor@example.com",
+  "senha": "Teste@123"
+}
+
+### Cadastrar curso sem token -> 401
+POST {{Api_HostAddress}}/cursos
+Content-Type: application/json
+
+{
+  "nome": "Formação .NET",
+  "cargaHoraria": 120,
+  "dataConclusao": "2026-09-10"
+}
+
+### Cadastrar curso com payload inválido -> 400
+POST {{Api_HostAddress}}/cursos
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "nome": "",
+  "cargaHoraria": 0,
+  "dataConclusao": "2026-09-10"
+}
+
+### Cadastrar curso autenticado -> 201
+# @name curso
+POST {{Api_HostAddress}}/cursos
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "nome": "Formação .NET",
+  "cargaHoraria": 120,
+  "dataConclusao": "2026-09-10"
+}
+
+### Consultar o curso criado (mesmo destino do Location do cadastro) -> 200
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+
+### Solicitar geração de certificados sem lista de alunos -> 400
+POST {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "alunos": []
+}
+
+### Solicitar geração de certificados para curso inexistente -> 404
+POST {{Api_HostAddress}}/cursos/00000000-0000-0000-0000-000000000000/certificados
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "alunos": [
+    { "nome": "Maria Silva" }
+  ]
+}
+
+### Solicitar geração de certificados -> 202 Accepted
+# Envia o comando GerarCertificados (Send) para a própria API, que processa o lote e gera um PDF
+# por certificado no LocalApplicationData do usuário.
+# Acompanhe a fila "gerar-certificados" no RabbitMQ Management e os logs da API.
+POST {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "alunos": [
+    { "nome": "Maria Silva" },
+    { "nome": "João Souza" }
+  ]
+}
+
+### Repetir a solicitação com o processamento ainda em andamento -> 409
+POST {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+{
+  "alunos": [
+    { "nome": "Maria Silva" }
+  ]
+}
+
+### Consultar status do processamento sem token -> 401
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/status
+
+### Consultar status de curso inexistente -> 404
+GET {{Api_HostAddress}}/cursos/00000000-0000-0000-0000-000000000000/status
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Consultar status do processamento
+# Logo após o 202 Accepted o status costuma ser "GerandoCertificados"; aguarde alguns segundos e repita
+# até ver "Concluido" ou "ConcluidoComFalhas" (RN-06) com zipDisponivel: true.
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/status
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Listar certificados de curso inexistente -> 404
+GET {{Api_HostAddress}}/cursos/00000000-0000-0000-0000-000000000000/certificados
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Listar certificados do curso com o status individual de geração
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Download do zip sem token -> 401
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados/download
+
+### Download do zip de curso inexistente -> 404
+GET {{Api_HostAddress}}/cursos/00000000-0000-0000-0000-000000000000/certificados/download
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Download antes do processamento concluir -> 409
+# Só repita esta requisição logo após o 202 Accepted, com o status ainda "Pendente"/"GerandoCertificados".
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados/download
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Download do zip -> 200 OK application/zip
+# O GerarCertificadosConsumer compacta os PDFs já gerados do curso; repita GET /status até ver
+# "Concluido" ou "ConcluidoComFalhas" com zipDisponivel: true antes de baixar.
+GET {{Api_HostAddress}}/cursos/{{curso.response.body.$.id}}/certificados/download
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+###
