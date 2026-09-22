@@ -30,7 +30,7 @@ public static class DependencyInjection
             if (string.IsNullOrWhiteSpace(connection))
                 throw new InvalidOperationException("Connection string \"SqlServer\" não configurada.");
 
-            options.UseSqlServer(connection);
+            options.UseSqlServer(connection, cfg => cfg.EnableRetryOnFailure(3));
         });
 
         services.AddIdentityCore<IdentityUser<Guid>>(options =>
