@@ -1,6 +1,8 @@
-# GeradorCertificadosOnline
+# Gerador de Certificados Online
 
-Projeto didático de arquitetura orientada a eventos (ASP.NET Core + RabbitMQ + MassTransit) da Academia do Programador. A especificação técnica no formato de requisitos está em [.docs/especificacao-tecnica.md](.docs/especificacao-tecnica.md), com versão para importação no [Google Docs](.docs/especificacao-tecnica.docx), e a especificação detalhada de arquitetura está em [.docs/especificação.md](.docs/especificação.md).
+Desenvolvido durante o curso Fullstack da [Academia do Programador 2026](https://www.academiadoprogramador.net).
+
+Projeto didático de arquitetura orientada a eventos (ASP.NET Core + RabbitMQ + MassTransit).
 
 ## Estrutura
 
