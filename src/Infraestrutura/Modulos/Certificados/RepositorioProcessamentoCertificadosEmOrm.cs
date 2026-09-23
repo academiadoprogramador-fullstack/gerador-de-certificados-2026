@@ -6,10 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GeradorCertificadosOnline.Infraestrutura.Modulos.Certificados;
 
+/// <summary>
+/// Implementa a persistência do agregado com EF Core e traduz conflitos do índice único
+/// de processamento ativo em erro de negócio.
+/// </summary>
 public sealed class RepositorioProcessamentoCertificadosEmOrm(
     CertificadosDbContext db
 ) : IRepositorioProcessamentoCertificados
 {
+    /// <summary>
+    /// Cria o lote e converte uma violação concorrente do índice único em conflito de negócio.
+    /// </summary>
     public async Task<Guid> CriarLoteAsync(
         Guid cursoId,
         IReadOnlyList<Certificado> certificados,
@@ -34,6 +41,9 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
         return processamento.Id;
     }
 
+    /// <summary>
+    /// Reanexa o agregado desconectado para salvar o estado completo sem entidades rastreadas antigas.
+    /// </summary>
     public async Task SalvarAsync(
         ProcessamentoCertificados processamento,
         CancellationToken cancellationToken
@@ -52,6 +62,7 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
         db.ChangeTracker.Clear();
     }
 
+    /// <summary>Seleciona o último lote pelo UUIDv7, incluindo seus certificados.</summary>
     public Task<ProcessamentoCertificados?> SelecionarPorCursoAsync(
         Guid cursoId,
         CancellationToken cancellationToken
@@ -65,6 +76,7 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
             .FirstOrDefaultAsync(cancellationToken);
     }
 
+    /// <summary>Carrega um lote com curso e certificados para o consumer.</summary>
     public Task<ProcessamentoCertificados?> SelecionarPorIdAsync(
         Guid id,
         CancellationToken cancellationToken
@@ -77,6 +89,7 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 
+    /// <summary>Verifica se há lote pendente ou em geração para o curso.</summary>
     public Task<bool> ExisteEmAndamentoAsync(Guid cursoId, CancellationToken cancellationToken)
     {
         return db.ProcessamentosCertificados.AnyAsync(

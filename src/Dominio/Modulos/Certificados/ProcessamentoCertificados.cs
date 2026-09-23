@@ -2,6 +2,10 @@ using GeradorCertificadosOnline.Dominio.Modulos.Cursos;
 
 namespace GeradorCertificadosOnline.Dominio.Modulos.Certificados;
 
+/// <summary>
+/// Agrega os certificados de um curso e controla o ciclo de vida de um lote de geração.
+/// Um lote só é finalizado depois que todos os certificados têm resultado e o ZIP é registrado.
+/// </summary>
 public sealed class ProcessamentoCertificados
 {
     public Guid Id { get; private set; }
@@ -47,6 +51,10 @@ public sealed class ProcessamentoCertificados
         Status = StatusProcessamento.GerandoCertificados;
     }
 
+    /// <summary>
+    /// Registra o PDF de um certificado pendente. Retorna falso se o item já tiver resultado,
+    /// permitindo que uma reentrega da mensagem seja idempotente.
+    /// </summary>
     public bool RegistrarSucesso(Guid certificadoId, string caminhoArquivo)
     {
         var certificado = EncontrarPendente(certificadoId);
@@ -59,6 +67,9 @@ public sealed class ProcessamentoCertificados
         return true;
     }
 
+    /// <summary>
+    /// Registra a falha de um certificado pendente sem interromper os demais itens do lote.
+    /// </summary>
     public bool RegistrarFalha(Guid certificadoId)
     {
         var certificado = EncontrarPendente(certificadoId);
@@ -71,6 +82,10 @@ public sealed class ProcessamentoCertificados
         return true;
     }
 
+    /// <summary>
+    /// Registra o ZIP e fecha o lote como concluído ou concluído com falhas.
+    /// Todos os certificados precisam ter resultado antes desta operação.
+    /// </summary>
     public void RegistrarZip(string caminhoZip)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(caminhoZip);

@@ -18,6 +18,10 @@ public sealed record SolicitarGeracaoCertificadosCommand(
     Guid CursoId,
     IReadOnlyList<AlunoCommand?>? Alunos) : IRequest<Result<SolicitacaoCertificadosDto>>;
 
+/// <summary>
+/// Valida a solicitação, persiste o lote e envia o comando para geração assíncrona.
+/// A persistência ocorre antes do envio ao broker; a V1 ainda não usa outbox transacional.
+/// </summary>
 public sealed class SolicitarGeracaoCertificadosCommandHandler(
     IRepositorioCurso repositorioCurso,
     IRepositorioProcessamentoCertificados repositorioProcessamento,

@@ -11,6 +11,7 @@ public sealed class FileSystemCertificadoStorage : ICertificadoStorage
     private const string ApplicationDirectoryName = "GeradorCertificadosOnline";
     private const string StorageDirectoryName = "storage";
 
+    /// <summary>Salva um PDF na pasta do curso e retorna seu caminho absoluto.</summary>
     public async Task<string> SalvarAsync(
         Guid cursoId,
         Guid certificadoId,
@@ -25,6 +26,7 @@ public sealed class FileSystemCertificadoStorage : ICertificadoStorage
         return caminhoArquivo;
     }
 
+    /// <summary>Compacta os PDFs informados em um ZIP persistido na pasta do curso.</summary>
     public async Task<string> CompactarAsync(
         Guid cursoId,
         Guid processamentoId,
@@ -50,6 +52,7 @@ public sealed class FileSystemCertificadoStorage : ICertificadoStorage
         return caminhoArquivo;
     }
 
+    /// <summary>Abre o arquivo persistido para leitura; o chamador é responsável por descartá-lo.</summary>
     public Stream AbrirLeitura(string caminho)
     {
         return File.OpenRead(caminho);

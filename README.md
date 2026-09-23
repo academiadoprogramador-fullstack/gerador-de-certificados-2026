@@ -4,15 +4,15 @@ Projeto didático de arquitetura orientada a eventos (ASP.NET Core + RabbitMQ + 
 
 ## Estrutura
 
-| Projeto | Tipo | Responsabilidade |
-| --- | --- | --- |
-| `src/Api` | ASP.NET Core Web API | Controllers, contratos HTTP, JWT, Problem Details e OpenAPI |
-| `src/Aplicacao` | Biblioteca de classes | Commands/queries e handlers MediatR, DTOs e resultados FluentResults |
-| `src/Dominio` | Biblioteca de classes | Entidades, validações e contratos de persistência, autenticação e arquivos |
-| `src/Infraestrutura` | Biblioteca de classes | SQL Server/EF Core, migrations, repositórios, filesystem e integrações externas |
-| `tests/GeradorCertificadosOnline.Tests` | Testes automatizados | Integração HTTP, persistência relacional e consumers |
+| Projeto                                 | Tipo                  | Responsabilidade                                                                |
+| --------------------------------------- | --------------------- | ------------------------------------------------------------------------------- |
+| `src/Api`                               | ASP.NET Core Web API  | Controllers, contratos HTTP, JWT, Problem Details e OpenAPI                     |
+| `src/Aplicacao`                         | Biblioteca de classes | Commands/queries e handlers MediatR, DTOs e resultados FluentResults            |
+| `src/Dominio`                           | Biblioteca de classes | Entidades, validações e contratos de persistência, autenticação e arquivos      |
+| `src/Infraestrutura`                    | Biblioteca de classes | SQL Server/EF Core, migrations, repositórios, filesystem e integrações externas |
+| `tests/GeradorCertificadosOnline.Tests` | Testes automatizados  | Integração HTTP, persistência relacional e consumers                            |
 
-O padrão de organização segue [delivery-app-2026@v8](https://github.com/academiadoprogramador-fullstack/delivery-app-2026/tree/0c084dfb0c0af632e62891fcd2eb7b44a6e5c7bf): módulos por funcionalidade, controllers enxutos, handlers, um consumer e um repositório agregado. A API compõe a Aplicação e a Infraestrutura via DI. O domínio não depende de EF Core/ASP.NET e a aplicação não depende da infraestrutura.
+O padrão de organização segue: módulos por funcionalidade, controllers enxutos, handlers, um consumer e um repositório agregado. A API compõe a Aplicação e a Infraestrutura via DI. O domínio não depende de EF Core/ASP.NET e a aplicação não depende da infraestrutura.
 
 Os repositórios expõem operações dos casos de uso, em vez de um CRUD genérico. Em particular, `Curso` pode possuir vários `ProcessamentoCertificados` finalizados, mas apenas um ativo por vez; cada processamento possui `Id` próprio, agrega seus certificados e é persistido por um único repositório. A mensageria usa somente o comando `GerarCertificados` e o `GerarCertificadosConsumer`.
 
@@ -40,9 +40,9 @@ O ambiente não usa Docker: o banco roda no LocalDB e o RabbitMQ fica no CloudAM
 
 3. Configure a chave de assinatura do JWT nos user-secrets. Gere uma chave aleatória com pelo menos 32 caracteres:
 
-    ```bash
-    dotnet user-secrets set "Jwt:SigningKey" "<chave-aleatoria-com-32+-caracteres>" --project src/Api
-    ```
+   ```bash
+   dotnet user-secrets set "Jwt:SigningKey" "<chave-aleatoria-com-32+-caracteres>" --project src/Api
+   ```
 
 4. Crie uma instância gratuita no CloudAMQP, copie a **AMQP URL** (começa com `amqps://`) e guarde-a nos user-secrets:
 
@@ -60,11 +60,11 @@ dotnet run --project src/Api
 
 ## Serviços locais
 
-| Serviço | Endereço |
-| --- | --- |
-| Swagger UI | http://localhost:5146/swagger |
-| RabbitMQ Management | Painel da instância no CloudAMQP |
-| SQL Server | `(localdb)\MSSQLLocalDB`, banco `GeradorCertificadosOnline` |
+| Serviço             | Endereço                                                    |
+| ------------------- | ----------------------------------------------------------- |
+| Swagger UI          | http://localhost:5146/swagger                               |
+| RabbitMQ Management | Painel da instância no CloudAMQP                            |
+| SQL Server          | `(localdb)\MSSQLLocalDB`, banco `GeradorCertificadosOnline` |
 
 ## Autenticação
 
@@ -78,16 +78,16 @@ A autorização é uma política global; rotas públicas usam `AllowAnonymous` e
 
 ## Contrato HTTP
 
-| Método | Rota | Sucesso |
-| --- | --- | --- |
-| POST | `/auth/cadastro` | 201, usuário criado |
-| POST | `/auth/login` | 200, usuário e token JWT |
-| POST | `/cursos` | 201, curso e `Location` consultável |
-| GET | `/cursos/{cursoId}` | 200, curso |
-| POST | `/cursos/{cursoId}/certificados` | 202, lote e `Location` para status |
-| GET | `/cursos/{cursoId}/status` | 200, processamento |
-| GET | `/cursos/{cursoId}/certificados` | 200, certificados ordenados por nome |
-| GET | `/cursos/{cursoId}/certificados/download` | 200, `application/zip` |
+| Método | Rota                                      | Sucesso                              |
+| ------ | ----------------------------------------- | ------------------------------------ |
+| POST   | `/auth/cadastro`                          | 201, usuário criado                  |
+| POST   | `/auth/login`                             | 200, usuário e token JWT             |
+| POST   | `/cursos`                                 | 201, curso e `Location` consultável  |
+| GET    | `/cursos/{cursoId}`                       | 200, curso                           |
+| POST   | `/cursos/{cursoId}/certificados`          | 202, lote e `Location` para status   |
+| GET    | `/cursos/{cursoId}/status`                | 200, processamento                   |
+| GET    | `/cursos/{cursoId}/certificados`          | 200, certificados ordenados por nome |
+| GET    | `/cursos/{cursoId}/certificados/download` | 200, `application/zip`               |
 
 As rotas e os campos JSON existentes foram preservados. `GET /cursos/{cursoId}` permite seguir o `Location` do cadastro. Erros usam `application/problem+json` com `status`, `title`, `type` e `traceId`; validações incluem `errors` por campo. Falhas inesperadas retornam 500 com mensagem genérica e são registradas pelo pipeline de exceções.
 

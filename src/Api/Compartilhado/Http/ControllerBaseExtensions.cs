@@ -4,8 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorCertificadosOnline.Api.Compartilhado.Http;
 
+/// <summary>
+/// Converte resultados dos casos de uso no contrato HTTP padronizado de Problem Details.
+/// </summary>
 public static class ControllerBaseExtensions
 {
+    /// <summary>
+    /// Mapeia a categoria do erro para o status HTTP e inclui o identificador de rastreamento.
+    /// </summary>
     public static ActionResult ProblemDetails(this ControllerBase controller, ResultBase resultado)
     {
         var erro = resultado.Errors.FirstOrDefault();
