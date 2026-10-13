@@ -1,0 +1,57 @@
+<app-pagina-autenticacao>
+  <div class="mb-8">
+    <p class="mb-3 text-sm font-semibold tracking-wide text-indigo-700">BEM-VINDO(a) DE VOLTA</p>
+    <h2 class="text-3xl font-semibold tracking-tight text-slate-950 focus:outline-none">
+      Acesse sua conta
+    </h2>
+
+    <p class="mt-2 text-sm leading-6 text-slate-600">
+      Entre para continuar sua jornada de aprendizado
+    </p>
+  </div>
+
+  <form novalidate class="space-y-5">
+    <div>
+      <label for="login-email" class="mb-2 block text-sm font-medium text-slate-800">Email</label>
+
+      <input
+        id="login-email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        placeholder="voce@exemplo.com"
+      />
+    </div>
+
+    <div>
+      <label for="login-senha" class="mb-2 block text-sm font-medium text-slate-800">Senha</label>
+
+      <span class="text-xs text-slate-500">Mínimo de 8 caracteres</span>
+
+      <input
+        id="login-senha"
+        type="password"
+        autocomplete="password"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        placeholder="Sua senha"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-wait disabled:opacity-70"
+    >
+      Entrar na minha conta <svg lucideArrowRight class="size-4" aria-hidden="true"></svg>
+    </button>
+  </form>
+
+  <p class="mt-7 text-center text-sm text-slate-600">
+    Ainda não tem uma conta?
+    <a
+      routerLink="/cadastro"
+      class="font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-900 focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+      >Criar conta</a
+    >
+  </p>
+</app-pagina-autenticacao>

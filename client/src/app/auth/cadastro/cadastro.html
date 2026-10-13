@@ -1,0 +1,62 @@
+<app-pagina-autenticacao>
+  <div class="mb-8">
+    <p class="mb-3 text-sm font-semibold tracking-wide text-indigo-700">COMECE SUA JORNADA</p>
+    <h2 class="text-3xl font-semibold tracking-tight text-slate-950 focus:outline-none">
+      Crie sua conta
+    </h2>
+
+    <p class="mt-2 text-sm leading-6 text-slate-600">
+      Um passo simples para organizar e celebrar suas conquistas.
+    </p>
+  </div>
+
+  <form novalidate class="space-y-5">
+    <div>
+      <label for="cadastro-email" class="mb-2 block text-sm font-medium text-slate-800"
+        >Email</label
+      >
+
+      <input
+        id="cadastro-email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        placeholder="voce@exemplo.com"
+      />
+    </div>
+
+    <div>
+      <label for="cadastro-senha" class="mb-2 block text-sm font-medium text-slate-800"
+        >Senha</label
+      >
+
+      <input
+        id="cadastro-senha"
+        type="password"
+        autocomplete="password"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        placeholder="Crie uma senha segura"
+      />
+      <p id="dica-senha" class="mt-2 text-xs leading-5 text-slate-600">
+        Use ao menos 8 caracteres, incluindo um número e um símbolo.
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-wait disabled:opacity-70"
+    >
+      Criar minha conta <svg lucideArrowRight class="size-4" aria-hidden="true"></svg>
+    </button>
+  </form>
+
+  <p class="mt-7 text-center text-sm text-slate-600">
+    Já tem uma conta?
+    <a
+      routerLink="/login"
+      class="font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-900 focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+      >Entrar</a
+    >
+  </p>
+</app-pagina-autenticacao>

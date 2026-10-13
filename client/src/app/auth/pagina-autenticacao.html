@@ -1,0 +1,84 @@
+<main
+  class="min-h-screen bg-[#f4f6fb] text-slate-900 lg:grid lg:grid-cols-[minmax(340px,0.88fr)_1.12fr]"
+>
+  <section
+    class="relative hidden overflow-hidden bg-[#101b36] px-12 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-20"
+  >
+    <div
+      class="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="absolute -right-36 bottom-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl"
+      aria-hidden="true"
+    ></div>
+    <a
+      routerLink="/"
+      class="relative inline-flex items-center gap-3 self-start rounded-lg text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+    >
+      <span
+        class="grid size-10 place-items-center rounded-xl bg-cyan-300 text-[#101b36]"
+        aria-hidden="true"
+      >
+        <svg lucideFileText class="size-6" strokeWidth="1.8"></svg>
+      </span>
+      Certifica<span class="text-cyan-300">+</span>
+    </a>
+    <div class="relative max-w-xl py-12">
+      <p
+        class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium tracking-wide text-cyan-200"
+      >
+        <span class="size-1.5 rounded-full bg-cyan-300" aria-hidden="true"></span>SUA JORNADA,
+        RECONHECIDA
+      </p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight xl:text-5xl">
+        Celebre cada conquista. <span class="text-cyan-300">Compartilhe seu próximo passo.</span>
+      </h1>
+      <p class="mt-6 max-w-md text-base leading-7 text-slate-300">
+        Organize cursos e transforme aprendizados em certificados que abrem novas possibilidades.
+      </p>
+      <div
+        class="mt-12 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-5"
+      >
+        <div
+          class="grid size-12 shrink-0 place-items-center rounded-xl bg-cyan-300/15 text-cyan-200"
+          aria-hidden="true"
+        >
+          <svg lucideAward class="size-6" strokeWidth="1.7"></svg>
+        </div>
+        <div>
+          <p class="font-medium">Cada etapa merece ser celebrada.</p>
+          <p class="mt-1 text-sm text-slate-400">
+            Seu espaço para acompanhar o que vem pela frente.
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="relative text-xs text-slate-400">
+      © 2026 Certifica+. Feito para celebrar o aprendizado.
+    </p>
+  </section>
+
+  <section
+    class="flex min-h-screen flex-col px-5 py-6 sm:px-10 lg:items-center lg:justify-center lg:px-12 lg:py-12"
+  >
+    <a
+      routerLink="/"
+      class="mb-12 inline-flex items-center gap-2 self-start text-base font-semibold tracking-tight text-slate-900 lg:hidden"
+      ><span
+        class="grid size-9 place-items-center rounded-xl bg-[#101b36] text-cyan-200"
+        aria-hidden="true"
+        >C</span
+      >Certifica<span class="text-indigo-600">+</span></a
+    >
+    <div class="mx-auto w-full max-w-md">
+      <ng-content />
+      <p class="mt-10 text-center text-xs leading-5 text-slate-500">
+        Ao continuar, você concorda com nossos termos de uso e política de privacidade.
+      </p>
+    </div>
+    <p class="mt-auto pt-10 text-center text-xs text-slate-500 lg:hidden">
+      © 2026 Certifica+. Feito para celebrar o aprendizado.
+    </p>
+  </section>
+</main>
