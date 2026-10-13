@@ -1,10 +1,17 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
+import { provideRouter, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./home/home').then((c) => c.Home),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+];
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
-  ]
+  providers: [provideBrowserGlobalErrorListeners(), provideRouter(routes)],
 };
