@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideArrowRight } from '@lucide/angular';
 
-import { PaginAutenticacao } from '../pagina-autenticacao';
+import { PaginaAutenticacao } from '../pagina-autenticacao';
 
 @Component({
-  imports: [LucideArrowRight, PaginAutenticacao, RouterLink],
+  imports: [LucideArrowRight, PaginaAutenticacao, RouterLink],
   selector: 'app-login',
   templateUrl: './login.html',
 })
