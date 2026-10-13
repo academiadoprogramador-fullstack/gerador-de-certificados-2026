@@ -1,12 +1,14 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - gerador-de-certificados-fullstack
+name: Deploy da API .NET como Azure App Service
 
 on:
   push:
     branches:
       - main
+    paths:
+      - "server/**"
   workflow_dispatch:
 
 jobs:
@@ -50,13 +52,10 @@ jobs:
           dotnet-version: "10.x"
 
       - name: Restore dependencies
-        run: dotnet restore src/Api/GeradorCertificadosOnline.Api.csproj
-
-      - name: Install Entity Framework CLI
-        run: dotnet tool install --global dotnet-ef
+        run: dotnet restore server/src/Api/GeradorCertificadosOnline.Api.csproj
 
       - name: Restore tools
-        run: dotnet tool restore
+        run: dotnet tool restore --tool-manifest server/dotnet-tools.json
 
       - name: Apply ORM migrations to AzureSQL
         env:
@@ -64,8 +63,8 @@ jobs:
           NewRelic__LicenseKey: ${{ secrets.NEWRELIC_LICENSE_KEY }}
         run: |
           dotnet ef database update `
-            --project src/Infraestrutura/GeradorCertificadosOnline.Infraestrutura.csproj `
-            --startup-project src/Api/GeradorCertificadosOnline.Api.csproj `
+            --project server/src/Infraestrutura/GeradorCertificadosOnline.Infraestrutura.csproj `
+            --startup-project server/src/Api/GeradorCertificadosOnline.Api.csproj `
             --configuration Release `
             --connection "$env:SQLSERVER_CONNECTIONSTRING"
 
