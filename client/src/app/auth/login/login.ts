@@ -21,8 +21,8 @@ export class Login {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  protected readonly modeloFormulario = signal<LoginFormModel>({ email: '', senha: '' });
-  protected readonly formularioLogin = form(this.modeloFormulario, (modelo) => {
+  protected readonly modeloLogin = signal<LoginFormModel>({ email: '', senha: '' });
+  protected readonly formularioLogin = form(this.modeloLogin, (modelo) => {
     required(modelo.email, { message: 'Informe seu email.' });
     email(modelo.email, { message: 'Informe um email válido.' });
     required(modelo.senha, { message: 'Informe sua senha.' });
@@ -38,7 +38,7 @@ export class Login {
       CadastroConcluidoNavigationState | undefined;
 
     if (estadoNavegacao?.emailCadastrado) {
-      this.modeloFormulario.update((original) => ({
+      this.modeloLogin.update((original) => ({
         email: estadoNavegacao?.emailCadastrado ?? '',
         senha: original.senha,
       }));
@@ -48,14 +48,18 @@ export class Login {
   protected enviarFormulario(event: SubmitEvent): void {
     event.preventDefault();
 
-    if (this.formularioLogin().invalid()) {
-      this.formularioLogin().markAsTouched();
+    const formulario = this.formularioLogin();
+
+    if (formulario.invalid()) {
+      formulario.markAsTouched();
       return;
     }
 
+    const modelo = this.modeloLogin();
+
     const requisicao: LoginRequest = {
-      email: this.modeloFormulario().email,
-      senha: this.modeloFormulario().senha,
+      email: modelo.email,
+      senha: modelo.senha,
     };
 
     this.authService.login(requisicao).subscribe(() => {

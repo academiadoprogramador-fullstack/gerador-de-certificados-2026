@@ -23,8 +23,8 @@ export class Cadastro {
 
   private readonly tituloPagina = viewChild<ElementRef<HTMLHeadingElement>>('tituloPagina');
 
-  protected readonly modeloFormulario = signal<CadastroFormModel>({ email: '', senha: '' });
-  protected readonly formularioCadastro = form(this.modeloFormulario, (modelo) => {
+  protected readonly modeloCadastro = signal<CadastroFormModel>({ email: '', senha: '' });
+  protected readonly formularioCadastro = form(this.modeloCadastro, (modelo) => {
     required(modelo.email, { message: 'Informe seu email.' });
     email(modelo.email, { message: 'Informe um email válido.' });
     required(modelo.senha, { message: 'Informe sua senha.' });
@@ -41,17 +41,21 @@ export class Cadastro {
   protected enviarFormulario(event: SubmitEvent): void {
     event.preventDefault();
 
-    if (this.formularioCadastro().invalid()) {
-      this.formularioCadastro().markAsTouched();
+    const formulario = this.formularioCadastro();
+
+    if (formulario.invalid()) {
+      formulario.markAsTouched();
       return;
     }
 
-    const request: CadastroRequest = {
-      email: this.modeloFormulario().email,
-      senha: this.modeloFormulario().senha,
+    const modelo = this.modeloCadastro();
+
+    const requisicao: CadastroRequest = {
+      email: modelo.email,
+      senha: modelo.senha,
     };
 
-    this.authService.cadastrar(request).subscribe((usuario) => {
+    this.authService.cadastrar(requisicao).subscribe((usuario) => {
       const estadoNavegacao: CadastroConcluidoNavigationState = {
         emailCadastrado: usuario.email,
       };

@@ -5,7 +5,11 @@ import { inject, Service, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-    CadastroRequest, LoginRequest, SessaoAutenticada, TokenDto, UsuarioDto
+  CadastroRequest,
+  LoginRequest,
+  SessaoAutenticada,
+  TokenDto,
+  UsuarioDto,
 } from './auth.models';
 import { URL_API } from './auth.tokens';
 
@@ -13,7 +17,6 @@ import { URL_API } from './auth.tokens';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-
   private readonly urlApi = inject(URL_API);
 
   private readonly sessaoState = signal<SessaoAutenticada | null>(null);
