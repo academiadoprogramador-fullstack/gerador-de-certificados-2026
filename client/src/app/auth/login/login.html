@@ -20,7 +20,7 @@
     Notificação de erro
   </div>
 
-  <form novalidate class="space-y-5">
+  <form (submit)="enviarFormulario($event)" novalidate class="space-y-5">
     <div>
       <label for="login-email" class="mb-2 block text-sm font-medium text-slate-800">Email</label>
 

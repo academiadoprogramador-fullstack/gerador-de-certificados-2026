@@ -3,7 +3,8 @@ import { email, form, FormField, minLength, required } from '@angular/forms/sign
 import { Router, RouterLink } from '@angular/router';
 import { LucideArrowRight } from '@lucide/angular';
 
-import { CadastroConcluidoNavigationState } from '../auth.models';
+import { CadastroConcluidoNavigationState, LoginRequest } from '../auth.models';
+import { AuthService } from '../auth.service';
 import { AuthShell } from '../shell/auth-shell';
 
 interface LoginFormModel {
@@ -17,6 +18,7 @@ interface LoginFormModel {
   templateUrl: './login.html',
 })
 export class Login {
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   protected readonly modeloFormulario = signal<LoginFormModel>({ email: '', senha: '' });
@@ -41,5 +43,23 @@ export class Login {
         senha: original.senha,
       }));
     }
+  }
+
+  protected enviarFormulario(event: SubmitEvent): void {
+    event.preventDefault();
+
+    if (this.formularioLogin().invalid()) {
+      this.formularioLogin().markAsTouched();
+      return;
+    }
+
+    const requisicao: LoginRequest = {
+      email: this.modeloFormulario().email,
+      senha: this.modeloFormulario().senha,
+    };
+
+    this.authService.login(requisicao).subscribe(() => {
+      void this.router.navigateByUrl('/');
+    });
   }
 }

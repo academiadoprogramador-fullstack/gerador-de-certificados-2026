@@ -38,8 +38,13 @@ export class Cadastro {
     afterNextRender(() => this.tituloPagina()?.nativeElement.focus());
   }
 
-  enviarFormulario(event: SubmitEvent) {
+  protected enviarFormulario(event: SubmitEvent): void {
     event.preventDefault();
+
+    if (this.formularioCadastro().invalid()) {
+      this.formularioCadastro().markAsTouched();
+      return;
+    }
 
     const request: CadastroRequest = {
       email: this.modeloFormulario().email,

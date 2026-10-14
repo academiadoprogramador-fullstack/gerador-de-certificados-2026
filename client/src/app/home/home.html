@@ -14,121 +14,125 @@
       </a>
 
       <span class="flex gap-2">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <p class="hidden text-sm text-slate-600 sm:block">voce@exemplo.com</p>
+        @if (sessaoAutenticada(); as sessao) {
+          <div class="flex items-center gap-3 sm:gap-5">
+            <p class="hidden text-sm text-slate-600 sm:block">{{ sessao.usuario.email }}</p>
 
-          <button
-            class="text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            <button
+              (click)="authService.encerrarSessao()"
+              class="text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            >
+              Sair
+            </button>
+          </div>
+        } @else {
+          <a
+            routerLink="/login"
+            class="bg-indigo-700 text-white px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            >Entrar</a
           >
-            Sair
-          </button>
-        </div>
-
-        <a
-          routerLink="/login"
-          class="bg-indigo-700 text-white px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-          >Entrar</a
-        >
+        }
       </span>
     </div>
   </header>
 
   <section class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
-    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-      <div>
-        <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
-          SEU ESPAÇO DE APRENDIZADO
-        </p>
-        <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-          Que bom ter você por aqui.
-        </h1>
-        <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-          Sua próxima conquista começa com uma nova jornada. Em breve, você poderá organizar seus
-          cursos e acompanhar seus certificados por aqui.
-        </p>
-        <div
-          class="mt-8 inline-flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
-        >
-          <span
-            class="grid size-7 place-items-center rounded-full bg-emerald-100 font-bold"
-            aria-hidden="true"
-            ><svg lucideCheck class="size-4" aria-hidden="true"></svg></span
-          >Conectado como <strong>voce@exemplo.com</strong>
-        </div>
-      </div>
-
-      <div class="rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10">
-        <div class="mb-12 flex items-start justify-between">
-          <span
-            class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-cyan-200"
-            >SUA PRÓXIMA CONQUISTA</span
-          ><svg lucideSparkles class="size-6 text-cyan-300" aria-hidden="true"></svg>
-        </div>
-        <h2 class="text-2xl font-semibold">Todo grande caminho começa com um passo.</h2>
-        <p class="mt-3 leading-7 text-slate-300">
-          Estamos preparando as ferramentas para você transformar aprendizado em reconhecimento.
-        </p>
-        <div class="mt-8 h-1.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
-          <div class="h-full w-1/3 rounded-full bg-cyan-300"></div>
-        </div>
-        <p class="mt-3 text-xs text-slate-400">Uma jornada de cada vez</p>
-      </div>
-    </div>
-
-    <div class="my-5">PLACEHOLDER DE ESPAÇAMENTO</div>
-
-    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-      <div>
-        <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
-          APRENDIZADO QUE VIRA CONQUISTA
-        </p>
-        <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
-          Suas conquistas merecem ser celebradas.
-        </h1>
-        <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-          Organize seus cursos e acompanhe cada passo da sua jornada de aprendizado em um só lugar.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a
-            routerLink="/cadastro"
-            class="rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            >Começar agora <svg lucideArrowRight class="ml-1 inline size-4"></svg>
-          </a>
-
-          <a
-            routerLink="/login"
-            class="rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            >Já tenho uma conta</a
+    @if (sessaoAutenticada(); as sessao) {
+      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div>
+          <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
+            SEU ESPAÇO DE APRENDIZADO
+          </p>
+          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+            Que bom ter você por aqui.
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+            Sua próxima conquista começa com uma nova jornada. Em breve, você poderá organizar seus
+            cursos e acompanhar seus certificados por aqui.
+          </p>
+          <div
+            class="mt-8 inline-flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
           >
+            <span
+              class="grid size-7 place-items-center rounded-full bg-emerald-100 font-bold"
+              aria-hidden="true"
+              ><svg lucideCheck class="size-4" aria-hidden="true"></svg></span
+            >Conectado como <strong class="-ml-1">{{ sessao.usuario.email }}</strong>
+          </div>
         </div>
-      </div>
 
-      <div
-        class="relative rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10"
-      >
-        <div
-          class="absolute -right-5 -top-5 grid size-16 place-items-center rounded-2xl bg-cyan-300 text-[#101b36] shadow-lg"
-          aria-hidden="true"
-        >
-          <svg lucideAward class="size-8" strokeWidth="1.7"></svg>
-        </div>
-        <p class="text-sm font-medium text-cyan-200">CADA PASSO CONTA</p>
-        <h2 class="mt-6 text-3xl font-semibold leading-tight">
-          Transforme dedicação em histórias para contar.
-        </h2>
-        <p class="mt-4 leading-7 text-slate-300">
-          Crie sua conta e acompanhe seus próximos capítulos de aprendizado.
-        </p>
-        <div class="mt-10 flex items-center gap-4 border-t border-white/10 pt-6">
-          <span
-            class="grid size-10 place-items-center rounded-full bg-white/10 text-cyan-200"
-            aria-hidden="true"
-            ><svg lucideSparkles class="size-5"></svg
-          ></span>
-          <p class="text-sm text-slate-300">Seu futuro começa com o que você aprende hoje.</p>
+        <div class="rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10">
+          <div class="mb-12 flex items-start justify-between">
+            <span
+              class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-cyan-200"
+              >SUA PRÓXIMA CONQUISTA</span
+            ><svg lucideSparkles class="size-6 text-cyan-300" aria-hidden="true"></svg>
+          </div>
+          <h2 class="text-2xl font-semibold">Todo grande caminho começa com um passo.</h2>
+          <p class="mt-3 leading-7 text-slate-300">
+            Estamos preparando as ferramentas para você transformar aprendizado em reconhecimento.
+          </p>
+          <div class="mt-8 h-1.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+            <div class="h-full w-1/3 rounded-full bg-cyan-300"></div>
+          </div>
+          <p class="mt-3 text-xs text-slate-400">Uma jornada de cada vez</p>
         </div>
       </div>
-    </div>
+    } @else {
+      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div>
+          <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
+            APRENDIZADO QUE VIRA CONQUISTA
+          </p>
+          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+            Suas conquistas merecem ser celebradas.
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+            Organize seus cursos e acompanhe cada passo da sua jornada de aprendizado em um só
+            lugar.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              routerLink="/cadastro"
+              class="rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              >Começar agora <svg lucideArrowRight class="ml-1 inline size-4"></svg>
+            </a>
+
+            <a
+              routerLink="/login"
+              class="rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              >Já tenho uma conta</a
+            >
+          </div>
+        </div>
+
+        <div
+          class="relative rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10"
+        >
+          <div
+            class="absolute -right-5 -top-5 grid size-16 place-items-center rounded-2xl bg-cyan-300 text-[#101b36] shadow-lg"
+            aria-hidden="true"
+          >
+            <svg lucideAward class="size-8" strokeWidth="1.7"></svg>
+          </div>
+          <p class="text-sm font-medium text-cyan-200">CADA PASSO CONTA</p>
+          <h2 class="mt-6 text-3xl font-semibold leading-tight">
+            Transforme dedicação em histórias para contar.
+          </h2>
+          <p class="mt-4 leading-7 text-slate-300">
+            Crie sua conta e acompanhe seus próximos capítulos de aprendizado.
+          </p>
+          <div class="mt-10 flex items-center gap-4 border-t border-white/10 pt-6">
+            <span
+              class="grid size-10 place-items-center rounded-full bg-white/10 text-cyan-200"
+              aria-hidden="true"
+              ><svg lucideSparkles class="size-5"></svg
+            ></span>
+            <p class="text-sm text-slate-300">Seu futuro começa com o que você aprende hoje.</p>
+          </div>
+        </div>
+      </div>
+    }
   </section>
 </main>
