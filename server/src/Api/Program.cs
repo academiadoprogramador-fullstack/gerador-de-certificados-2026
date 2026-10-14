@@ -5,7 +5,13 @@ using GeradorCertificadosOnline.Infraestrutura;
 using GeradorCertificadosOnline.Infraestrutura.Compartilhado.Orm;
 using Microsoft.EntityFrameworkCore;
 
+const string corsPolicyCliente = "Client";
+
 var builder = WebApplication.CreateBuilder(args);
+
+var origensPermitidas = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? [];
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -13,6 +19,15 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddJwtAuthServices();
 builder.Services.AddHttpServices();
 builder.Services.AddOpenApiServices();
+
+builder.Services.AddCors(options => options.AddPolicy(corsPolicyCliente, policy =>
+{
+    if (origensPermitidas.Length > 0)
+        policy.WithOrigins(origensPermitidas);
+
+    policy.AllowAnyHeader()
+        .AllowAnyMethod();
+}));
 
 var app = builder.Build();
 
@@ -35,6 +50,8 @@ app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicyCliente);
 
 app.UseAuthentication();
 app.UseAuthorization();
