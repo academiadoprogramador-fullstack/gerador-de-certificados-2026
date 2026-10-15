@@ -1,9 +1,17 @@
+import { Observer } from 'rxjs';
+
+import { HttpErrorResponse } from '@angular/common/http';
 import { afterNextRender, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { email, form, FormField, minLength, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { LucideArrowRight } from '@lucide/angular';
 
-import { CadastroConcluidoNavigationState, LoginRequest } from '../auth.models';
+import {
+  ApiValidationProblemDetails,
+  CadastroConcluidoNavigationState,
+  LoginRequest,
+  TokenDto,
+} from '../auth.models';
 import { AuthService } from '../auth.service';
 import { AuthShell } from '../shell/auth-shell';
 
@@ -29,6 +37,9 @@ export class Login {
     minLength(modelo.senha, 8, { message: 'A senha precisa ter pelo menos 8 caracteres.' });
   });
 
+  protected readonly mensagemSucesso = signal('');
+  protected readonly mensagemErro = signal('');
+
   private readonly tituloPagina = viewChild<ElementRef<HTMLHeadingElement>>('tituloPagina');
 
   constructor() {
@@ -42,6 +53,10 @@ export class Login {
         email: estadoNavegacao?.emailCadastrado ?? '',
         senha: original.senha,
       }));
+
+      this.mensagemSucesso.set(
+        'Conta criada com sucesso. Entre com suas credenciais para continuar.',
+      );
     }
   }
 
@@ -62,8 +77,26 @@ export class Login {
       senha: modelo.senha,
     };
 
-    this.authService.login(requisicao).subscribe(() => {
-      void this.router.navigateByUrl('/');
-    });
+    this.mensagemErro.set('');
+
+    const observer: Partial<Observer<TokenDto>> = {
+      next: () => void this.router.navigateByUrl('/'),
+      error: (response: HttpErrorResponse) => {
+        const mensagem =
+          response.status === 401
+            ? 'Email ou senha incorretos. Configura suas credenciais e tente novamente.'
+            : this.obterMensagemErroApi(response);
+
+        this.mensagemErro.set(mensagem);
+      },
+    };
+
+    this.authService.login(requisicao).subscribe(observer);
+  }
+
+  private obterMensagemErroApi(response: HttpErrorResponse): string {
+    const problem = response.error as ApiValidationProblemDetails | null;
+
+    return problem?.detail ?? 'Não foi possível conectar à API. Tente novamente em instantes';
   }
 }

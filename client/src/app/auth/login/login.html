@@ -13,12 +13,23 @@
     </p>
   </div>
 
-  <div
-    class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
-    role="alert"
-  >
-    Notificação de erro
-  </div>
+  @if (mensagemSucesso()) {
+    <div
+      class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+      role="alert"
+    >
+      {{ mensagemSucesso() }}
+    </div>
+  }
+
+  @if (mensagemErro()) {
+    <div
+      class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
+      role="alert"
+    >
+      {{ mensagemErro() }}
+    </div>
+  }
 
   <form (submit)="enviarFormulario($event)" novalidate class="space-y-5">
     <div>
