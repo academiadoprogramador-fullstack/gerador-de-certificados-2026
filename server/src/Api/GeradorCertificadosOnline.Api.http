@@ -44,6 +44,15 @@ Content-Type: application/json
   "dataConclusao": "2026-09-10"
 }
 
+### Listar cursos sem token -> 401
+GET {{Api_HostAddress}}/cursos
+Accept: application/json
+
+### Listar cursos autenticado -> 200 (retorna [] quando não há cursos)
+GET {{Api_HostAddress}}/cursos
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+
 ### Cadastrar curso com payload inválido -> 400
 POST {{Api_HostAddress}}/cursos
 Content-Type: application/json

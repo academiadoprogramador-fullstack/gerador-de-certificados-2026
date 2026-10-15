@@ -2,7 +2,6 @@ using GeradorCertificadosOnline.Api.Compartilhado.Http;
 using GeradorCertificadosOnline.Aplicacao.Modulos.Certificados;
 using GeradorCertificadosOnline.Aplicacao.Modulos.Certificados.DTOs;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorCertificadosOnline.Api.Modulos.Certificados;

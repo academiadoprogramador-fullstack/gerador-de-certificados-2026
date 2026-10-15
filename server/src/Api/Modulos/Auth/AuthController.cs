@@ -3,7 +3,6 @@ using GeradorCertificadosOnline.Aplicacao.Modulos.Auth;
 using GeradorCertificadosOnline.Dominio.Compartilhado.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorCertificadosOnline.Api.Modulos.Auth;

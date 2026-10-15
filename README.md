@@ -129,6 +129,7 @@ Para permitir mais de uma origem, use índices adicionais, como `Cors__AllowedOr
 | `POST` | `/auth/cadastro`                          | Cria um usuário                       |
 | `POST` | `/auth/login`                             | Autentica e retorna um JWT            |
 | `POST` | `/cursos`                                 | Cria um curso                         |
+| `GET`  | `/cursos`                                 | Lista cursos ordenados por nome       |
 | `GET`  | `/cursos/{cursoId}`                       | Consulta um curso                     |
 | `POST` | `/cursos/{cursoId}/certificados`          | Inicia a geração de certificados      |
 | `GET`  | `/cursos/{cursoId}/status`                | Consulta o progresso do processamento |
