@@ -13,7 +13,6 @@ import {
   TokenDto,
 } from '../auth.models';
 import { AuthService } from '../auth.service';
-import { AuthShell } from '../shell/auth-shell';
 
 interface LoginFormModel {
   readonly email: string;
@@ -21,7 +20,7 @@ interface LoginFormModel {
 }
 
 @Component({
-  imports: [LucideArrowRight, AuthShell, FormField, RouterLink],
+  imports: [LucideArrowRight, FormField, RouterLink],
   selector: 'app-login',
   templateUrl: './login.html',
 })

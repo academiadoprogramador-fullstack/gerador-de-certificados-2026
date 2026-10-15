@@ -13,7 +13,6 @@ import {
   UsuarioDto,
 } from '../auth.models';
 import { AuthService } from '../auth.service';
-import { AuthShell } from '../shell/auth-shell';
 
 interface CadastroFormModel {
   readonly email: string;
@@ -21,7 +20,7 @@ interface CadastroFormModel {
 }
 
 @Component({
-  imports: [LucideArrowRight, AuthShell, FormField, RouterLink],
+  imports: [LucideArrowRight, FormField, RouterLink],
   selector: 'app-cadastro',
   templateUrl: './cadastro.html',
 })
@@ -77,7 +76,7 @@ export class Cadastro {
           emailCadastrado: usuario.email,
         };
 
-        void this.router.navigateByUrl('/login', { state: estadoNavegacao });
+        void this.router.navigateByUrl('/auth/login', { state: estadoNavegacao });
       },
       error: (response: HttpErrorResponse) => {
         this.enviandoFormulario.set(false);

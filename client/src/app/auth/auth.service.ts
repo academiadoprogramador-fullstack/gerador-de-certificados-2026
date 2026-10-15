@@ -35,14 +35,14 @@ export class AuthService {
   login(req: LoginRequest): Observable<TokenDto> {
     return this.http
       .post<TokenDto>(`${this.urlApi}/auth/login`, req)
-      .pipe(tap((token) => this.salvarSessao(token, req.email))); // tap é utilizado para gerar efeitos colaterais
+      .pipe(tap((token) => this.salvarSessao(token, req.email)));
   }
 
   encerrarSessao(): void {
     localStorage.removeItem(this.chaveArmazenamento);
     this.sessaoState.set(null);
 
-    void this.router.navigateByUrl('/login');
+    void this.router.navigateByUrl('/auth/login');
   }
 
   private salvarSessao(token: TokenDto, email: string): void {
