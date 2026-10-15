@@ -65,13 +65,14 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
     /// <summary>Seleciona o último lote pelo UUIDv7, incluindo seus certificados.</summary>
     public Task<ProcessamentoCertificados?> SelecionarPorCursoAsync(
         Guid cursoId,
+        Guid usuarioId,
         CancellationToken cancellationToken
     )
     {
         return db.ProcessamentosCertificados
             .AsNoTracking()
             .Include(p => p.Certificados)
-            .Where(p => p.CursoId == cursoId)
+            .Where(p => p.CursoId == cursoId && p.Curso.UsuarioId == usuarioId)
             .OrderByDescending(p => p.Id)
             .FirstOrDefaultAsync(cancellationToken);
     }

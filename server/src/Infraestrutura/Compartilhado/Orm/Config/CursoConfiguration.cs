@@ -1,4 +1,5 @@
 using GeradorCertificadosOnline.Dominio.Modulos.Cursos;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,5 +11,10 @@ public class CursoConfiguration : IEntityTypeConfiguration<Curso>
     {
         builder.Property(c => c.Nome)
             .HasMaxLength(Curso.TamanhoMaximoNome);
+
+        builder.HasOne<IdentityUser<Guid>>()
+            .WithMany()
+            .HasForeignKey(c => c.UsuarioId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

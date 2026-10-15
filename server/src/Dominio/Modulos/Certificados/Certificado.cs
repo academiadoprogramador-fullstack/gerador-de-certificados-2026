@@ -6,6 +6,7 @@ public sealed class Certificado
 {
     public const int TamanhoMaximoNome = 200;
     public Guid Id { get; private set; }
+    public Guid UsuarioId { get; private set; }
     public Guid ProcessamentoId { get; private set; }
     public string NomeAluno { get; private set; } = string.Empty;
     public StatusGeracao StatusGeracao { get; private set; } = StatusGeracao.Pendente;
@@ -17,9 +18,10 @@ public sealed class Certificado
 
     private Certificado() { }
 
-    public Certificado(string nomeAluno)
+    public Certificado(Guid usuarioId, string nomeAluno)
     {
         Id = Guid.CreateVersion7();
+        UsuarioId = usuarioId;
         NomeAluno = nomeAluno?.Trim() ?? string.Empty;
     }
 

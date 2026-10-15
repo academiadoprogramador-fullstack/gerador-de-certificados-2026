@@ -12,7 +12,7 @@ public interface IRepositorioProcessamentoCertificados
     Task SalvarAsync(ProcessamentoCertificados processamento, CancellationToken cancellationToken);
 
     /// <summary>Obtém o processamento mais recente do curso, incluindo seus certificados.</summary>
-    Task<ProcessamentoCertificados?> SelecionarPorCursoAsync(Guid cursoId, CancellationToken cancellationToken);
+    Task<ProcessamentoCertificados?> SelecionarPorCursoAsync(Guid cursoId, Guid usuarioId, CancellationToken cancellationToken);
 
     /// <summary>Obtém um processamento pelo identificador, incluindo curso e certificados.</summary>
     Task<ProcessamentoCertificados?> SelecionarPorIdAsync(Guid id, CancellationToken cancellationToken);

@@ -7,6 +7,7 @@ using MediatR;
 namespace GeradorCertificadosOnline.Aplicacao.Modulos.Cursos;
 
 public sealed record CadastrarCursoCommand(
+    Guid UsuarioId,
     string Nome,
     int CargaHoraria,
     DateOnly DataConclusao) : IRequest<Result<CursoDto>>;
@@ -20,6 +21,7 @@ public sealed class CadastrarCursoCommandHandler(IRepositorioCurso repositorioCu
     )
     {
         var curso = new Curso(
+            command.UsuarioId,
             command.Nome,
             command.CargaHoraria,
             command.DataConclusao);

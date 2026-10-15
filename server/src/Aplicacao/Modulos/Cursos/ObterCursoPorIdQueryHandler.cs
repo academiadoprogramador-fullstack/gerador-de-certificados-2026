@@ -6,7 +6,7 @@ using MediatR;
 
 namespace GeradorCertificadosOnline.Aplicacao.Modulos.Cursos;
 
-public sealed record ObterCursoPorIdQuery(Guid CursoId) : IRequest<Result<CursoDto>>;
+public sealed record ObterCursoPorIdQuery(Guid CursoId, Guid UsuarioId) : IRequest<Result<CursoDto>>;
 
 public sealed class ObterCursoPorIdQueryHandler(IRepositorioCurso repositorioCurso)
     : IRequestHandler<ObterCursoPorIdQuery, Result<CursoDto>>
@@ -17,6 +17,7 @@ public sealed class ObterCursoPorIdQueryHandler(IRepositorioCurso repositorioCur
     {
         var curso = await repositorioCurso.SelecionarPorIdAsync(
             query.CursoId,
+            query.UsuarioId,
             cancellationToken);
 
         return curso is null ? Result.Fail(ErrosDeCurso.NaoEncontrado())

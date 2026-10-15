@@ -136,7 +136,7 @@ Para permitir mais de uma origem, use índices adicionais, como `Cors__AllowedOr
 | `GET`  | `/cursos/{cursoId}/certificados`          | Lista certificados e seus estados     |
 | `GET`  | `/cursos/{cursoId}/certificados/download` | Baixa o ZIP gerado                    |
 
-As rotas protegidas aceitam autenticação **Bearer**. Os erros da API seguem `ProblemDetails`; erros de validação incluem mensagens por campo. Exemplos de requisições estão em `server/src/Api/GeradorCertificadosOnline.Api.http`.
+As rotas protegidas aceitam autenticação **Bearer**. Cursos e certificados são associados ao usuário do token; operações sobre recursos de outros usuários não os expõem. Os erros da API seguem `ProblemDetails`; erros de validação incluem mensagens por campo. Exemplos de requisições estão em `server/src/Api/GeradorCertificadosOnline.Api.http`.
 
 ## Processamento de certificados
 

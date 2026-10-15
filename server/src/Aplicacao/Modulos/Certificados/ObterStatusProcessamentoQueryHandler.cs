@@ -6,7 +6,7 @@ using MediatR;
 
 namespace GeradorCertificadosOnline.Aplicacao.Modulos.Certificados;
 
-public sealed record ObterStatusProcessamentoQuery(Guid CursoId)
+public sealed record ObterStatusProcessamentoQuery(Guid CursoId, Guid UsuarioId)
     : IRequest<Result<StatusProcessamentoDto>>;
 
 public sealed class ObterStatusProcessamentoQueryHandler(
@@ -20,6 +20,7 @@ public sealed class ObterStatusProcessamentoQueryHandler(
     {
         var processamento = await repositorioProcessamento.SelecionarPorCursoAsync(
             query.CursoId,
+            query.UsuarioId,
             cancellationToken);
 
         return processamento is null

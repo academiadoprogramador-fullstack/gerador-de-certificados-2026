@@ -1,4 +1,5 @@
 using GeradorCertificadosOnline.Dominio.Modulos.Certificados;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,11 @@ public class CertificadoConfiguration : IEntityTypeConfiguration<Certificado>
             .WithMany(p => p.Certificados)
             .HasForeignKey(c => c.ProcessamentoId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<IdentityUser<Guid>>()
+            .WithMany()
+            .HasForeignKey(c => c.UsuarioId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(c => new { c.ProcessamentoId, c.StatusGeracao });
     }

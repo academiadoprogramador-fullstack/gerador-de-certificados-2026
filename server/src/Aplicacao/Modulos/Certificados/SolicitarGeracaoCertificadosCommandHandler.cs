@@ -16,6 +16,7 @@ public sealed record AlunoCommand(string Nome);
 
 public sealed record SolicitarGeracaoCertificadosCommand(
     Guid CursoId,
+    Guid UsuarioId,
     IReadOnlyList<AlunoCommand?>? Alunos) : IRequest<Result<SolicitacaoCertificadosDto>>;
 
 /// <summary>
@@ -50,7 +51,7 @@ public sealed class SolicitarGeracaoCertificadosCommandHandler(
                     continue;
                 }
 
-                var certificado = new Certificado(aluno.Nome);
+                var certificado = new Certificado(command.UsuarioId, aluno.Nome);
 
                 var errosCertificado = certificado.Validar().Select(e => new ErroValidacao(
                     $"alunos[{i}].{e.Campo}",
@@ -65,7 +66,7 @@ public sealed class SolicitarGeracaoCertificadosCommandHandler(
         if (erros.Count > 0)
             return Result.Fail(Erros.Validacao(erros));
 
-        if (!await repositorioCurso.ExisteAsync(command.CursoId, cancellationToken))
+        if (!await repositorioCurso.ExisteAsync(command.CursoId, command.UsuarioId, cancellationToken))
             return Result.Fail(ErrosDeCurso.NaoEncontrado());
 
         var existeEmAndamento = await repositorioProcessamento.ExisteEmAndamentoAsync(

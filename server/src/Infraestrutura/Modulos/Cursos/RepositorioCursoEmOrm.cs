@@ -12,22 +12,25 @@ public sealed class RepositorioCursoEmOrm(CertificadosDbContext db) : IRepositor
         await db.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<Curso?> SelecionarPorIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Curso?> SelecionarPorIdAsync(Guid id, Guid usuarioId, CancellationToken cancellationToken)
     {
-        return db.Cursos.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        return db.Cursos.AsNoTracking().FirstOrDefaultAsync(
+            c => c.Id == id && c.UsuarioId == usuarioId,
+            cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Curso>> SelecionarTodosAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<Curso>> SelecionarTodosAsync(Guid usuarioId, CancellationToken cancellationToken)
     {
         return await db.Cursos
             .AsNoTracking()
+            .Where(c => c.UsuarioId == usuarioId)
             .OrderBy(c => c.Nome)
             .ThenBy(c => c.Id)
             .ToListAsync(cancellationToken);
     }
 
-    public Task<bool> ExisteAsync(Guid id, CancellationToken cancellationToken)
+    public Task<bool> ExisteAsync(Guid id, Guid usuarioId, CancellationToken cancellationToken)
     {
-        return db.Cursos.AnyAsync(c => c.Id == id, cancellationToken);
+        return db.Cursos.AnyAsync(c => c.Id == id && c.UsuarioId == usuarioId, cancellationToken);
     }
 }

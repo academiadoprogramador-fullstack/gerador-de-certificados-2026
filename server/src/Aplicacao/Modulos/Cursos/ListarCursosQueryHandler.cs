@@ -5,7 +5,7 @@ using MediatR;
 
 namespace GeradorCertificadosOnline.Aplicacao.Modulos.Cursos;
 
-public sealed record ListarCursosQuery : IRequest<Result<IReadOnlyList<CursoDto>>>;
+public sealed record ListarCursosQuery(Guid UsuarioId) : IRequest<Result<IReadOnlyList<CursoDto>>>;
 
 public sealed class ListarCursosQueryHandler(IRepositorioCurso repositorioCurso)
     : IRequestHandler<ListarCursosQuery, Result<IReadOnlyList<CursoDto>>>
@@ -14,7 +14,7 @@ public sealed class ListarCursosQueryHandler(IRepositorioCurso repositorioCurso)
         ListarCursosQuery query,
         CancellationToken cancellationToken)
     {
-        var cursos = await repositorioCurso.SelecionarTodosAsync(cancellationToken);
+        var cursos = await repositorioCurso.SelecionarTodosAsync(query.UsuarioId, cancellationToken);
 
         IReadOnlyList<CursoDto> dtos = cursos
             .Select(CursoDto.From)

@@ -8,6 +8,7 @@ public sealed class Curso
     public const int TamanhoMaximoNome = 200;
 
     public Guid Id { get; private set; }
+    public Guid UsuarioId { get; private set; }
     public string Nome { get; private set; } = string.Empty;
     public int CargaHoraria { get; private set; }
     public DateOnly DataConclusao { get; private set; }
@@ -17,9 +18,10 @@ public sealed class Curso
 
     private Curso() { }
 
-    public Curso(string nome, int cargaHoraria, DateOnly dataConclusao)
+    public Curso(Guid usuarioId, string nome, int cargaHoraria, DateOnly dataConclusao)
     {
         Id = Guid.CreateVersion7();
+        UsuarioId = usuarioId;
         Nome = nome?.Trim() ?? string.Empty;
         CargaHoraria = cargaHoraria;
         DataConclusao = dataConclusao;
