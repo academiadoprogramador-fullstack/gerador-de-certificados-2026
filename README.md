@@ -1,8 +1,8 @@
 # Certifica+
 
 <p align="center">
-  <strong>Aprendizado que vira conquista.</strong><br />
-  Organize cursos, gere certificados e acompanhe cada etapa em um só lugar.
+  <strong>Reconheça a formação dos seus alunos.</strong><br />
+  Organize os cursos da sua instituição, emita certificados e acompanhe cada etapa em um só lugar.
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   </a>
 </p>
 
-> **Certifica+** é uma aplicação full-stack para administrar cursos e emitir certificados digitais. A API processa as solicitações de forma assíncrona, gera certificados em PDF e disponibiliza um arquivo ZIP quando o lote estiver pronto.
+> **Certifica+** é uma aplicação full-stack para instituições de ensino organizarem seus cursos e emitirem certificados digitais para os alunos. A API processa as solicitações de forma assíncrona, gera certificados em PDF e disponibiliza um arquivo ZIP quando o lote estiver pronto.
 >
 > O projeto está em evolução: nesta etapa, o client oferece as telas de cadastro e login; a API já disponibiliza operações de cursos, solicitações de certificados, acompanhamento e download.
 
@@ -19,11 +19,11 @@ Desenvolvido durante o curso Fullstack da [Academia do Programador 2026](https:/
 
 ## O produto
 
-- Crie e consulte cursos.
-- Solicite certificados para uma lista de alunos.
-- Acompanhe o progresso de cada processamento e o resultado de cada certificado.
-- Baixe os certificados gerados em PDF, reunidos em um ZIP.
-- Crie uma conta e autentique-se para acessar as operações protegidas da API.
+- Cadastre e consulte os cursos oferecidos pela instituição.
+- Solicite a emissão de certificados para os alunos de cada curso.
+- Acompanhe o processamento e o resultado de cada certificado emitido.
+- Baixe os certificados dos alunos em PDF, reunidos em um arquivo ZIP.
+- Crie um acesso para a instituição; cursos e certificados ficam associados à conta autenticada.
 
 O processamento é orientado a eventos: a API publica uma solicitação no RabbitMQ e um consumer gera os PDFs em segundo plano. Falhas individuais são registradas sem interromper o restante do lote; o estado e a disponibilidade do ZIP podem ser consultados pela API.
 
