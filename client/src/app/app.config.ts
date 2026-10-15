@@ -19,6 +19,22 @@ const routes: Routes = [
     loadComponent: () => import('./auth/login/login').then((c) => c.Login),
   },
   {
+    path: 'cursos',
+    loadComponent: () => import('./cursos/shell/cursos-shell').then((c) => c.CursosShell),
+    children: [
+      { path: '', redirectTo: 'listar', pathMatch: 'full' },
+      {
+        path: 'listar',
+        loadComponent: () => import('./cursos/listar/listar-cursos').then((c) => c.ListarCursos),
+      },
+      {
+        path: 'cadastrar',
+        loadComponent: () =>
+          import('./cursos/cadastrar/cadastrar-curso').then((c) => c.CadastrarCurso),
+      },
+    ],
+  },
+  {
     path: '**',
     redirectTo: '',
   },

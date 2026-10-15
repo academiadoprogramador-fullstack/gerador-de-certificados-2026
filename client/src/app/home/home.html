@@ -1,41 +1,5 @@
 <main class="min-h-screen bg-[#f4f6fb] text-slate-900">
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-      <a
-        routerLink="/"
-        class="inline-flex items-center gap-3 rounded-lg text-lg font-semibold tracking-tight"
-      >
-        <span
-          class="grid size-10 place-items-center rounded-xl bg-[#101b36] text-cyan-200"
-          aria-hidden="true"
-        >
-          <svg lucideFileText class="size-6" strokeWidth="1.8"></svg>
-        </span>
-        Certifica<span class="-ml-3 text-indigo-600">+</span>
-      </a>
-
-      <span class="flex gap-2">
-        @if (sessaoAutenticada(); as sessao) {
-          <div class="flex items-center gap-3 sm:gap-5">
-            <p class="hidden text-sm text-slate-600 sm:block">{{ sessao.usuario.email }}</p>
-
-            <button
-              (click)="authService.encerrarSessao()"
-              class="text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            >
-              Sair
-            </button>
-          </div>
-        } @else {
-          <a
-            routerLink="/login"
-            class="bg-indigo-700 text-white px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            >Entrar</a
-          >
-        }
-      </span>
-    </div>
-  </header>
+  <app-navbar></app-navbar>
 
   <section class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
     @if (sessaoAutenticada(); as sessao) {
@@ -47,19 +11,30 @@
           <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
             Reconheça a formação dos seus alunos.
           </h1>
-          <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-            Em breve, sua instituição poderá cadastrar cursos, emitir certificados para os alunos e
-            acompanhar cada processamento por aqui.
+
+          <p class="mt-5 max-w-xl text-lg leadin-8 text-slate-600">
+            Cadastre os cursos da sua instituição, emita certificados para os alunos e acompanhe
+            cada etapa em um só lugar.
           </p>
-          <div
-            class="mt-8 inline-flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
-          >
-            <span
-              class="grid size-7 place-items-center rounded-full bg-emerald-100 font-bold"
-              aria-hidden="true"
-              ><svg lucideCheck class="size-4" aria-hidden="true"></svg></span
-            >Conectado como <strong class="-ml-1">{{ sessao.usuario.email }}</strong>
-          </div>
+
+          <span class="flex gap-3 items-center mt-8">
+            <a
+              routerLink="/cursos"
+              class="inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            >
+              Acessar meus cursos <svg lucideArrowRight class="size-4" aria-hidden="true"></svg>
+            </a>
+
+            <div
+              class="inline-flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+            >
+              <span
+                class="grid size-7 place-items-center rounded-full bg-emerald-100 font-bold"
+                aria-hidden="true"
+                ><svg lucideCheck class="size-4" aria-hidden="true"></svg></span
+              >Conectado como <strong class="-ml-1">{{ sessao.usuario.email }}</strong>
+            </div>
+          </span>
         </div>
 
         <div class="rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10">
