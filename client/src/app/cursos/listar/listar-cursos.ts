@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { LucideBookOpen } from '@lucide/angular';
 
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
+import { CursoDto } from '../cursos.models';
 import { CursosService } from '../cursos.service';
 
 @Component({
@@ -15,8 +15,29 @@ import { CursosService } from '../cursos.service';
 export class ListarCursos {
   private readonly cursosService = inject(CursosService);
 
-  protected readonly cursos = toSignal(this.cursosService.listar());
+  protected readonly cursos = signal<readonly CursoDto[]>([]);
   protected readonly mensagemErro = signal('');
+  protected readonly carregando = signal(true);
+
+  constructor() {
+    this.carregarCursos();
+  }
+
+  private carregarCursos(): void {
+    this.carregando.set(true);
+    this.mensagemErro.set('');
+
+    this.cursosService.listar().subscribe({
+      next: (cursos) => {
+        this.cursos.set(cursos);
+        this.carregando.set(false);
+      },
+      error: (resposta: HttpErrorResponse) => {
+        this.mensagemErro.set(this.obterMensagemErro(resposta));
+        this.carregando.set(false);
+      },
+    });
+  }
 
   private obterMensagemErro(response: HttpErrorResponse): string {
     const problem = response.error as ApiValidationProblemDetails | null;
