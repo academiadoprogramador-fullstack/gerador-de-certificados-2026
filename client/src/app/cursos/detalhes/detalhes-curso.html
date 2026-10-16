@@ -1,1 +1,31 @@
-<p>detalhes-curso works!</p>
+@if (mensagemErro()) {
+  <div
+    class="mb-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
+    role="alert"
+  >
+    {{ mensagemErro() }}
+  </div>
+}
+
+@if (carregando()) {
+  <p class="rounded-2xl border border-slate-200 bg-white p-6 text-slate-600" role="status">
+    Carregando curso...
+  </p>
+} @else if (curso(); as curso) {
+  <dl
+    class="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 sm:p-8"
+  >
+    <div class="sm:col-span-2">
+      <dt class="text-sm font-medium text-slate-500">Nome</dt>
+      <dd class="mt-1 break-words text-xl font-semibold text-slate-950">{{ curso.nome }}</dd>
+    </div>
+    <div>
+      <dt class="text-sm font-medium text-slate-500">Carga horária</dt>
+      <dd class="mt-1 text-slate-900">{{ curso.cargaHoraria }} horas</dd>
+    </div>
+    <div>
+      <dt class="text-sm font-medium text-slate-500">Data de conclusão</dt>
+      <dd class="mt-1 text-slate-900">{{ formatarData(curso.dataConclusao) }}</dd>
+    </div>
+  </dl>
+}

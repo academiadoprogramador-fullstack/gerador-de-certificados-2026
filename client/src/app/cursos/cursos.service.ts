@@ -18,4 +18,8 @@ export class CursosService {
   cadastrar(requisicao: CriarCursoRequest): Observable<CursoDto> {
     return this.http.post<CursoDto>(`${this.urlApi}/cursos`, requisicao);
   }
+
+  obterPorId(cursoId: string): Observable<CursoDto> {
+    return this.http.get<CursoDto>(`${this.urlApi}/cursos/${cursoId}`);
+  }
 }
