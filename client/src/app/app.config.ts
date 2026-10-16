@@ -1,8 +1,9 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
 import { environment } from '../environments/environment';
+import { authInterceptor } from './auth/auth.interceptor';
 import { CHAVE_ARMAZENAMENTO, URL_API } from './auth/auth.tokens';
 
 const routes: Routes = [
@@ -55,7 +56,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide: URL_API,
       useValue: environment.urlApi,
