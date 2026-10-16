@@ -55,7 +55,7 @@
                 <h2 class="break-words font-semibold text-slate-950">{{ curso.nome }}</h2>
                 <p class="mt-2 text-sm text-slate-600">
                   {{ curso.cargaHoraria }} horas <span aria-hidden="true">·</span> Concluído em
-                  {{ curso.dataConclusao }}
+                  {{ formatarData(curso.dataConclusao) }}
                 </p>
               </div>
             </div>

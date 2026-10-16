@@ -4,3 +4,9 @@ export interface CursoDto {
   readonly cargaHoraria: number;
   readonly dataConclusao: string;
 }
+
+export interface CriarCursoRequest {
+  readonly nome: string;
+  readonly cargaHoraria: number;
+  readonly dataConclusao: string;
+}

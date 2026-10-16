@@ -1,1 +1,119 @@
-<p>cadastrar-curso works!</p>
+<section class="mx-auto max-w-2xl" aria-labelledby="cadastrar-curso-titulo">
+  <div class="mb-6">
+    <p class="mb-2 text-sm font-semibold tracking-wide text-indigo-700">GESTÃO DA INSTITUIÇÃO</p>
+    <h1 id="cadastrar-curso-titulo" class="text-3xl font-semibold tracking-tight text-slate-950">
+      Cadastrar curso
+    </h1>
+    <p class="mt-2 text-slate-600">
+      Registre um curso da sua instituição para organizar a emissão de certificados.
+    </p>
+  </div>
+
+  @if (mensagemErro()) {
+    <div
+      class="mb-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
+      role="alert"
+    >
+      {{ mensagemErro() }}
+    </div>
+  }
+
+  <form
+    (submit)="cadastrarCurso($event)"
+    novalidate
+    class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+  >
+    <div>
+      <label for="curso-nome" class="mb-1.5 block text-sm font-medium text-slate-800"
+        >Nome do curso</label
+      >
+      <input
+        id="curso-nome"
+        type="text"
+        autocomplete="off"
+        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        [formField]="formularioCurso.nome"
+        [attr.aria-invalid]="formularioCurso.nome().touched() && formularioCurso.nome().invalid()"
+        [attr.aria-describedby]="
+          formularioCurso.nome().touched() && formularioCurso.nome().invalid()
+            ? 'curso-nome-erro'
+            : null
+        "
+      />
+
+      @if (formularioCurso.nome().touched() && formularioCurso.nome().invalid()) {
+        <p id="curso-nome-erro" class="mt-1 text-sm text-rose-700">
+          {{ formularioCurso.nome().errors()[0].message }}
+        </p>
+      }
+    </div>
+
+    <div>
+      <label for="curso-carga" class="mb-1.5 block text-sm font-medium text-slate-800"
+        >Carga horária (horas)</label
+      >
+      <input
+        id="curso-carga"
+        type="number"
+        step="1"
+        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        [formField]="formularioCurso.cargaHoraria"
+        [attr.aria-invalid]="
+          formularioCurso.cargaHoraria().touched() && formularioCurso.cargaHoraria().invalid()
+        "
+        [attr.aria-describedby]="
+          formularioCurso.cargaHoraria().touched() && formularioCurso.cargaHoraria().invalid()
+            ? 'curso-carga-erro'
+            : null
+        "
+      />
+
+      @if (formularioCurso.cargaHoraria().touched() && formularioCurso.cargaHoraria().invalid()) {
+        <p id="curso-carga-erro" class="mt-1 text-sm text-rose-700">
+          {{ formularioCurso.cargaHoraria().errors()[0].message }}
+        </p>
+      }
+    </div>
+
+    <div>
+      <label for="curso-data" class="mb-1.5 block text-sm font-medium text-slate-800"
+        >Data de conclusão</label
+      >
+      <input
+        id="curso-data"
+        type="date"
+        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+        [formField]="formularioCurso.dataConclusao"
+        [attr.aria-invalid]="
+          formularioCurso.dataConclusao().touched() && formularioCurso.dataConclusao().invalid()
+        "
+        [attr.aria-describedby]="
+          formularioCurso.dataConclusao().touched() && formularioCurso.dataConclusao().invalid()
+            ? 'curso-data-erro'
+            : null
+        "
+      />
+
+      @if (formularioCurso.dataConclusao().touched() && formularioCurso.dataConclusao().invalid()) {
+        <p id="curso-data-erro" class="mt-1 text-sm text-rose-700">
+          {{ formularioCurso.dataConclusao().errors()[0].message }}
+        </p>
+      }
+    </div>
+
+    <div class="flex flex-wrap justify-end gap-3 pt-2">
+      <button
+        type="submit"
+        [disabled]="enviandoFormulario()"
+        class="rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-wait disabled:opacity-70"
+      >
+        {{ enviandoFormulario() ? 'Cadastrando...' : 'Cadastrar curso' }}
+      </button>
+      <a
+        routerLink="/cursos/listar"
+        class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+        >Cancelar</a
+      >
+    </div>
+  </form>
+</section>

@@ -39,6 +39,10 @@ export class ListarCursos {
     });
   }
 
+  protected formatarData(dataConclusao: string): string {
+    return new Date(dataConclusao).toLocaleDateString();
+  }
+
   private obterMensagemErro(response: HttpErrorResponse): string {
     const problem = response.error as ApiValidationProblemDetails | null;
 
