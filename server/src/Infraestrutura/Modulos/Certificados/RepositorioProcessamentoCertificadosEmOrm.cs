@@ -73,6 +73,7 @@ public sealed class RepositorioProcessamentoCertificadosEmOrm(
             .AsNoTracking()
             .Include(p => p.Certificados)
             .Where(p => p.CursoId == cursoId && p.Curso.UsuarioId == usuarioId)
+            .OrderByDescending(p => p.IniciadoEm)
             .OrderByDescending(p => p.Id)
             .FirstOrDefaultAsync(cancellationToken);
     }
