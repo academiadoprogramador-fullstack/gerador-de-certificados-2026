@@ -40,6 +40,7 @@
     </p>
   } @else if (curso(); as curso) {
     <form
+      (submit)="solicitarGeracao($event)"
       novalidate
       class="mb-8 spacy-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
     >
@@ -59,14 +60,29 @@
           rows="6"
           class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
           placeholder="Maria Silva&#10;João Souza"
+          [formField]="formulario.nomesAlunos"
+          [attr.aria-invalid]="
+            formulario.nomesAlunos().touched() && formulario.nomesAlunos().invalid()
+          "
+          [attr.aria-describedby]="
+            formulario.nomesAlunos().touched() && formulario.nomesAlunos().invalid()
+              ? 'nomes-alunos-erro'
+              : null
+          "
         ></textarea>
+        @if (formulario.nomesAlunos().touched() && formulario.nomesAlunos().invalid()) {
+          <p id="nomes-alunos-erro" class="mt-1 text-sm text-rose-700">
+            {{ formulario.nomesAlunos().errors()[0].message }}
+          </p>
+        }
       </div>
 
       <button
         type="submit"
         class="mt-2 rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="enviando()"
       >
-        Gerar certificados
+        {{ enviando() ? 'Gerando certificados...' : 'Gerar certificados' }}
       </button>
     </form>
   }
