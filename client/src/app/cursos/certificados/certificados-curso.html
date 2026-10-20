@@ -85,5 +85,84 @@
         {{ enviando() ? 'Gerando certificados...' : 'Gerar certificados' }}
       </button>
     </form>
+
+    @if (status(); as processamento) {
+      <section
+        class="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+        aria-labelledby="status-titulo"
+      >
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h2 id="status-titulo" class="text-xl font-semibold text-slate-950">
+              Último processamento
+            </h2>
+            <p>{{ processamento.status }}</p>
+          </div>
+
+          <button
+            type="button"
+            class="rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Baixar ZIP
+          </button>
+        </div>
+
+        <dl class="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div class="rounded-xl bg-slate-50 p-4">
+            <dt class="text-sm text-slate-600">Total</dt>
+            <dd class="mt-1 text-xl font-semibold">{{ processamento.totalCertificados }}</dd>
+          </div>
+
+          <div class="rounded-xl bg-slate-50 p-4">
+            <dt class="text-sm text-emerald-600">Gerados</dt>
+            <dd class="mt-1 text-xl font-semibold text-emerald-800">
+              {{ processamento.gerados }}
+            </dd>
+          </div>
+
+          <div class="rounded-xl bg-slate-50 p-4">
+            <dt class="text-sm text-rose-600">Falhas</dt>
+            <dd class="mt-1 text-xl font-semibold text-rose-800">
+              {{ processamento.falhas }}
+            </dd>
+          </div>
+        </dl>
+      </section>
+    } @else {
+      <div
+        class="mb-8 rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-slate-600"
+      >
+        Este curso ainda não possui um processamento de certificados.
+      </div>
+    }
+
+    @if (certificados().length > 0) {
+      <section aria-labelledby="lista-certificados-titulo">
+        <h2 id="lista-certificados-titulo" class="mb-4 text-xl font-semibold text-slate-950">
+          Certificados dos alunos
+        </h2>
+        <ul class="space-y-3">
+          @for (certificado of certificados(); track certificado.id) {
+            <li
+              class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <span class="break-words font-medium text-slate-900">{{
+                certificado.nomeAluno
+              }}</span>
+              <span
+                class="rounded-full px-3 py-1 text-sm font-semibold"
+                [class.bg-emerald-50]="certificado.statusGeracao === 'Gerado'"
+                [class.text-emerald-800]="certificado.statusGeracao === 'Gerado'"
+                [class.bg-rose-50]="certificado.statusGeracao === 'Falha'"
+                [class.text-rose-800]="certificado.statusGeracao === 'Falha'"
+                [class.bg-slate-100]="certificado.statusGeracao === 'Pendente'"
+                [class.text-slate-700]="certificado.statusGeracao === 'Pendente'"
+                >{{ certificado.statusGeracao }}</span
+              >
+            </li>
+          }
+        </ul>
+      </section>
+    }
   }
 </section>

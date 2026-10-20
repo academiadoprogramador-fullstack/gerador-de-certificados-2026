@@ -8,7 +8,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
 import { CursoDto } from '../cursos.models';
 import { CursosService } from '../cursos.service';
-import { SolicitarCertificadosRequest } from './certificados.models';
+import {
+  CertificadoDto,
+  SolicitarCertificadosRequest,
+  StatusProcessamentoDto,
+} from './certificados.models';
 import { CertificadosService } from './certificados.service';
 
 interface CertificadosFormModel {
@@ -38,11 +42,15 @@ export class CertificadosCurso {
     required(modelo.nomesAlunos, { message: 'Informe ao menos um nome de aluno.' });
   });
 
+  protected readonly status = signal<StatusProcessamentoDto | null>(null);
+  protected readonly certificados = signal<readonly CertificadoDto[]>([]);
+
   constructor() {
     this.cursosService.obterPorId(this.cursoId).subscribe({
       next: (curso: CursoDto) => {
         this.curso.set(curso);
         this.carregando.set(false);
+        this.carregarStatusProcessamento();
       },
       error: (resposta: HttpErrorResponse) => {
         this.mensagemErro.set(
@@ -89,6 +97,9 @@ export class CertificadosCurso {
       next: (dto) => {
         this.enviando.set(false);
         this.formulario.nomesAlunos().reset('');
+
+        this.mensagemSucesso.set(`Solicitação recebida para ${dto.totalAlunos} aluno(s).`);
+        this.carregarStatusProcessamento();
       },
       error: (resposta: HttpErrorResponse) => {
         this.enviando.set(false);
@@ -97,6 +108,41 @@ export class CertificadosCurso {
             resposta,
             'Não foi possível solicitar a geração dos certificados do curso.',
           ),
+        );
+      },
+    });
+  }
+
+  private carregarStatusProcessamento(): void {
+    this.certificadosService.obterStatus(this.cursoId).subscribe({
+      next: (status) => {
+        this.status.set(status);
+
+        this.carregarCertificados();
+      },
+      error: (resposta: HttpErrorResponse) => {
+        this.status.set(null);
+
+        if (resposta.status !== 404) {
+          this.mensagemErro.set(
+            this.obterMensagemErroApi(
+              resposta,
+              'Não foi possível consultar o processamento dos certificados do curso.',
+            ),
+          );
+        }
+
+        this.carregarCertificados();
+      },
+    });
+  }
+
+  private carregarCertificados() {
+    this.certificadosService.listar(this.cursoId).subscribe({
+      next: (certificados) => this.certificados.set(certificados),
+      error: (resposta: HttpErrorResponse) => {
+        this.mensagemErro.set(
+          this.obterMensagemErroApi(resposta, 'Não foi possível listar os certificados do curso.'),
         );
       },
     });
