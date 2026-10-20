@@ -44,6 +44,11 @@ const routes: Routes = [
         loadComponent: () =>
           import('./cursos/cadastrar/cadastrar-curso').then((c) => c.CadastrarCurso),
       },
+      {
+        path: ':cursoId/certificados',
+        loadComponent: () =>
+          import('./cursos/certificados/certificados-curso').then((c) => c.CertificadosCurso),
+      },
     ],
   },
   {

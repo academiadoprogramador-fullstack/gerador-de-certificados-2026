@@ -28,4 +28,10 @@
       <dd class="mt-1 text-slate-900">{{ formatarData(curso.dataConclusao) }}</dd>
     </div>
   </dl>
+
+  <a
+    [routerLink]="['/cursos', curso.id, 'certificados']"
+    class="mt-5 inline-flex rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+    >Gerenciar certificados</a
+  >
 }

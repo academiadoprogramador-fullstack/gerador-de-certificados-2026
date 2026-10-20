@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
 import { CursoDto } from '../cursos.models';
 import { CursosService } from '../cursos.service';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-detalhes-curso',
   templateUrl: './detalhes-curso.html',
 })
