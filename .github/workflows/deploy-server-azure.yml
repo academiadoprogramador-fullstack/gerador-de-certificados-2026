@@ -63,8 +63,8 @@ jobs:
           NewRelic__LicenseKey: ${{ secrets.NEWRELIC_LICENSE_KEY }}
         run: |
           dotnet ef database update `
-            --project server/src/Infraestrutura/GeradorCertificadosOnline.Infraestrutura.csproj `
-            --startup-project server/src/Api/GeradorCertificadosOnline.Api.csproj `
+            --project "server/src/Infraestrutura/GeradorCertificadosOnline.Infraestrutura.csproj" `
+            --startup-project "server/src/Api/GeradorCertificadosOnline.Api.csproj" `
             --configuration Release `
             --connection "$env:SQLSERVER_CONNECTIONSTRING"
 
