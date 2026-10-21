@@ -39,6 +39,7 @@ export class CertificadosCurso {
   protected readonly mensagemErro = signal('');
   protected readonly carregando = signal(true);
   protected readonly enviando = signal(false);
+  protected readonly baixando = signal(false);
 
   protected readonly modelo = signal<CertificadosFormModel>({ nomesAlunos: '' });
   protected readonly formulario = form(this.modelo, (modelo) => {
@@ -111,6 +112,34 @@ export class CertificadosCurso {
             resposta,
             'Não foi possível solicitar a geração dos certificados do curso.',
           ),
+        );
+      },
+    });
+  }
+
+  protected baixarZip(): void {
+    if (!this.status()?.zipDisponivel || this.baixando()) return;
+
+    this.baixando.set(true);
+    this.mensagemErro.set('');
+
+    this.certificadosService.baixar(this.cursoId).subscribe({
+      next: (arquivo) => {
+        const url = URL.createObjectURL(arquivo);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `certificados-${this.cursoId}.zip`;
+        link.click();
+
+        URL.revokeObjectURL(url);
+        this.baixando.set(false);
+      },
+      error: (resposta: HttpErrorResponse) => {
+        this.baixando.set(false);
+
+        this.mensagemErro.set(
+          this.obterMensagemErroApi(resposta, 'Não foi possível baixar o arquivo ZIP.'),
         );
       },
     });

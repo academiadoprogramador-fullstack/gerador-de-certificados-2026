@@ -5,10 +5,7 @@ import { inject, Service } from '@angular/core';
 
 import { URL_API } from '../../auth/auth.tokens';
 import {
-  CertificadoDto,
-  SolicitacaoCertificadoDto,
-  SolicitarCertificadosRequest,
-  StatusProcessamentoDto,
+    CertificadoDto, SolicitacaoCertificadoDto, SolicitarCertificadosRequest, StatusProcessamentoDto
 } from './certificados.models';
 
 @Service()
@@ -34,5 +31,11 @@ export class CertificadosService {
     return this.http.get<readonly CertificadoDto[]>(
       `${this.urlApi}/cursos/${cursoId}/certificados`,
     );
+  }
+
+  baixar(cursoId: string): Observable<Blob> {
+    return this.http.get(`${this.urlApi}/cursos/${cursoId}/certificados/download`, {
+      responseType: 'blob',
+    });
   }
 }

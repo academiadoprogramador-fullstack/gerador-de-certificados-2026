@@ -108,8 +108,10 @@
           </div>
 
           <button
+            (click)="baixarZip()"
             type="button"
             class="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-on-dark hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
+            [disabled]="!processamento.zipDisponivel || baixando()"
           >
             <svg lucideFolderArchive class="size-4"></svg>
             Baixar ZIP
