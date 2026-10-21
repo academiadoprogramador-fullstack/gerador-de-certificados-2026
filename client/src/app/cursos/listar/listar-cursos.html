@@ -5,7 +5,9 @@
       <h1 id="lista-cursos-titulo" class="text-3xl font-semibold tracking-tight text-text-strong">
         Cursos da instituição
       </h1>
-      <p class="mt-2 text-text-muted">Consulte os cursos cadastrados e acompanhe suas informações</p>
+      <p class="mt-2 text-text-muted">
+        Consulte os cursos cadastrados e acompanhe suas informações
+      </p>
     </div>
 
     <a
@@ -43,7 +45,7 @@
       @for (curso of cursos(); track curso.id) {
         <li>
           <a
-            [routerLink]="['/cursos/detalhes', curso.id]"
+            [routerLink]="['/cursos', curso.id, 'detalhes']"
             class="block rounded-2xl border border-border bg-surface p-5 shadow-sm transition hover:border-brand-border hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:p-6"
           >
             <div class="flex items-start gap-4">
@@ -54,7 +56,7 @@
                 <svg lucideBookOpen class="size-5"></svg>
               </span>
               <div class="min-w-0">
-                <h2 class="break-words font-semibold text-text-strong">{{ curso.nome }}</h2>
+                <h2 class="wrap-break-word font-semibold text-text-strong">{{ curso.nome }}</h2>
                 <p class="mt-2 text-sm text-text-muted">
                   {{ curso.cargaHoraria }} horas <span aria-hidden="true">·</span> Concluído em
                   {{ formatarData(curso.dataConclusao) }}

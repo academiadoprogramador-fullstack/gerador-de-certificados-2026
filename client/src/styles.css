@@ -37,13 +37,13 @@
   --color-success-strong: #064e3b;
   --color-success-text: #166534;
   --color-success: #059669;
-  --color-success-border: #a7f3d0;
-  --color-success-muted: #d1fae5;
-  --color-success-subtle: #ecfdf5;
+  --color-success-border: #7ce0b1;
+  --color-success-muted: #88ffc2;
+  --color-success-subtle: #defff0;
 
   --color-danger-strong: #881337;
   --color-danger-text: #9f1239;
   --color-danger: #e11d48;
-  --color-danger-border: #fecdd3;
-  --color-danger-subtle: #fff1f2;
+  --color-danger-border: #feb1ba;
+  --color-danger-subtle: #fee4e6;
 }

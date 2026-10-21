@@ -35,7 +35,7 @@ const routes: Routes = [
         loadComponent: () => import('./cursos/listar/listar-cursos').then((c) => c.ListarCursos),
       },
       {
-        path: 'detalhes/:cursoId',
+        path: ':cursoId/detalhes',
         loadComponent: () =>
           import('./cursos/detalhes/detalhes-curso').then((c) => c.DetalhesCurso),
       },
