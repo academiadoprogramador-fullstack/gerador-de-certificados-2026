@@ -1,12 +1,4 @@
-<section class="mx-auto max-w-4xl" aria-labelledby="certificados-curso-titulo">
-  <a
-    [routerLink]="['/cursos/detalhes', cursoId]"
-    class="mb-6 inline-flex items-center gap-1 rounded-lg text-sm font-semibold text-indigo-700 hover:text-indigo-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-  >
-    <svg lucideArrowLeft class="size-4"></svg>
-    Voltar para o curso</a
-  >
-
+<section aria-labelledby="certificados-curso-titulo">
   <div class="mb-6">
     <p class="mb-2 text-sm font-semibold tracking-wide text-indigo-700">GESTÃO DA INSTITUIÇÃO</p>
     <h1 id="certificados-curso-titulo" class="text-3xl font-semibold tracking-tight text-slate-950">
@@ -14,7 +6,17 @@
     </h1>
 
     @if (curso(); as curso) {
-      <p class="mt-2 text-slate-600">{{ curso.nome }}</p>
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <p class="mt-2 text-slate-600">{{ curso.nome }}</p>
+
+        <a
+          [routerLink]="['/cursos/detalhes', curso.id]"
+          class="inline-flex items-center gap-2 border border-slate-300 text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+        >
+          <svg lucideArrowLeft class="size-4"></svg>
+          Voltar para o curso</a
+        >
+      </div>
     }
   </div>
 
@@ -141,7 +143,7 @@
     }
 
     @if (certificados().length > 0) {
-      <section aria-labelledby="lista-certificados-titulo">
+      <section aria-labelledby="lista-certificados-titulo" class="pb-8">
         <h2 id="lista-certificados-titulo" class="mb-4 text-xl font-semibold text-slate-950">
           Certificados dos alunos
         </h2>

@@ -20,16 +20,19 @@
 
           <button
             (click)="authService.encerrarSessao()"
-            class="text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+            class="inline-flex items-center gap-2 border border-slate-300 text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
           >
+            <svg lucideUserRoundArrowLeft class="size-4"></svg>
             Sair
           </button>
         </div>
       } @else {
         <a
           routerLink="/auth/login"
-          class="bg-indigo-700 text-white px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-          >Entrar</a
+          class="inline-flex items-center gap-2 bg-indigo-700 text-white px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+        >
+          <svg lucideLogIn class="size-4"></svg>
+          Entrar</a
         >
       }
     </span>
