@@ -65,7 +65,7 @@
         <textarea
           id="nomes-alunos"
           rows="6"
-          class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+          class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
           placeholder="Maria Silva&#10;João Souza"
           [formField]="formulario.nomesAlunos"
           [attr.aria-invalid]="
@@ -155,7 +155,7 @@
             <li
               class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface p-5 shadow-sm"
             >
-              <span class="break-words font-medium text-text">{{ certificado.nomeAluno }}</span>
+              <span class="wrap-break-word font-medium text-text">{{ certificado.nomeAluno }}</span>
               <span
                 class="rounded-full px-3 py-1 text-sm font-semibold"
                 [class.bg-success-subtle]="certificado.statusGeracao === 'Gerado'"

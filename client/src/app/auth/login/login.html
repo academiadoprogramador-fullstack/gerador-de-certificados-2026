@@ -1,6 +1,9 @@
 <div class="mb-8">
   <p class="mb-3 text-sm font-semibold tracking-wide text-brand">ACESSO DA INSTITUIÇÃO</p>
-  <h2 #tituloPagina class="text-3xl font-semibold tracking-tight text-text-strong focus:outline-none">
+  <h2
+    #tituloPagina
+    class="text-3xl font-semibold tracking-tight text-text-strong focus:outline-none"
+  >
     Entre na sua conta
   </h2>
 
@@ -36,7 +39,7 @@
       type="email"
       autocomplete="email"
       inputmode="email"
-      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
       placeholder="voce@exemplo.com"
       [formField]="formularioLogin.email"
       [attr.aria-invalid]="formularioLogin.email().touched() && formularioLogin.email().invalid()"
@@ -63,7 +66,7 @@
       id="login-senha"
       type="password"
       autocomplete="password"
-      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
       placeholder="Sua senha"
       [formField]="formularioLogin.senha"
       [attr.aria-invalid]="formularioLogin.senha().touched() && formularioLogin.senha().invalid()"

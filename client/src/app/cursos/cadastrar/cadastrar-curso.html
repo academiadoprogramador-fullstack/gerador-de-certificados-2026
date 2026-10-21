@@ -31,7 +31,7 @@
         id="curso-nome"
         type="text"
         autocomplete="off"
-        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
         [formField]="formularioCurso.nome"
         [attr.aria-invalid]="formularioCurso.nome().touched() && formularioCurso.nome().invalid()"
         [attr.aria-describedby]="
@@ -56,7 +56,7 @@
         id="curso-carga"
         type="number"
         step="1"
-        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
         [formField]="formularioCurso.cargaHoraria"
         [attr.aria-invalid]="
           formularioCurso.cargaHoraria().touched() && formularioCurso.cargaHoraria().invalid()
@@ -82,7 +82,7 @@
       <input
         id="curso-data"
         type="date"
-        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
+        class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-invalid:border-danger"
         [formField]="formularioCurso.dataConclusao"
         [attr.aria-invalid]="
           formularioCurso.dataConclusao().touched() && formularioCurso.dataConclusao().invalid()
