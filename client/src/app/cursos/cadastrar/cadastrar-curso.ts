@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, maxLength, min, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
+import { LucideCirclePlus } from '@lucide/angular';
 
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
 import { CriarCursoRequest } from '../cursos.models';
@@ -14,7 +15,7 @@ export interface CursoFormModel {
 }
 
 @Component({
-  imports: [FormField, RouterLink],
+  imports: [LucideCirclePlus, FormField, RouterLink],
   selector: 'app-cadastrar-curso',
   templateUrl: './cadastrar-curso.html',
 })

@@ -1,14 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideBookOpen } from '@lucide/angular';
+import { LucideBookOpen, LucideCirclePlus } from '@lucide/angular';
 
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
 import { CursoDto } from '../cursos.models';
 import { CursosService } from '../cursos.service';
 
 @Component({
-  imports: [LucideBookOpen, RouterLink],
+  imports: [LucideCirclePlus, LucideBookOpen, RouterLink],
   selector: 'app-listar-cursos',
   templateUrl: './listar-cursos.html',
 })

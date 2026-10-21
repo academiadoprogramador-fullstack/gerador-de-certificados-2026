@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { LucideArrowLeft, LucideFileText, LucideFolderArchive } from '@lucide/angular';
 
 import { ApiValidationProblemDetails } from '../../auth/auth.models';
 import { CursoDto } from '../cursos.models';
@@ -18,7 +19,7 @@ interface CertificadosFormModel {
 }
 
 @Component({
-  imports: [FormField, RouterLink],
+  imports: [LucideFileText, LucideFolderArchive, LucideArrowLeft, FormField, RouterLink],
   selector: 'app-certificados-curso',
   templateUrl: './certificados-curso.html',
 })
