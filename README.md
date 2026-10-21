@@ -98,6 +98,48 @@ dotnet run --project server/src/Api/GeradorCertificadosOnline.Api.csproj
 
 A API local fica disponível em `http://localhost:5146`; o Swagger fica em [`http://localhost:5146/swagger`](http://localhost:5146/swagger).
 
+### Executar a API em um container
+
+É necessário ter o Docker instalado, acesso a um SQL Server e a um RabbitMQ acessíveis pelo container e uma chave de assinatura JWT com pelo menos 32 bytes. O banco precisa estar criado e com as migrations aplicadas.
+
+Se a imagem do GHCR for privada, autentique-se antes do `pull` usando um token do GitHub com permissão `read:packages`:
+
+```bash
+echo "$GHCR_TOKEN" | docker login ghcr.io --username SEU_USUARIO_GITHUB --password-stdin
+```
+
+Crie um arquivo de ambiente fora do repositório, por exemplo `/caminho/seguro/api.env`, com os endereços e segredos do seu ambiente:
+
+```dotenv
+ConnectionStrings__SqlServer=Server=sql.exemplo.net,1433;Database=GeradorDeCertificadosDb;User Id=usuario;Password=senha;TrustServerCertificate=True
+ConnectionStrings__RabbitMq=amqp://usuario:senha@rabbitmq.exemplo.net:5672
+Jwt__SigningKey=troque-por-uma-chave-aleatoria-com-pelo-menos-32-bytes
+Cors__AllowedOrigins__0=https://seu-client.exemplo.com
+```
+
+Restrinja o acesso ao arquivo e crie uma pasta persistente para os PDFs e ZIPs. A imagem executa como o usuário `app` (UID 1654):
+
+```bash
+chmod 600 /caminho/seguro/api.env
+mkdir -p ./certificados-storage
+sudo chown 1654:1654 ./certificados-storage
+```
+
+Baixe e execute a imagem, substituindo `latest` por uma tag `sha-...` se quiser fixar uma versão específica:
+
+```bash
+docker pull ghcr.io/academiadoprogramador-fullstack/gerador-de-certificados-2026:latest
+docker run -d \
+  --name certificados-api \
+  --restart unless-stopped \
+  --publish 8080:8080 \
+  --env-file /caminho/seguro/api.env \
+  --mount type=bind,source="$(pwd)/certificados-storage",target=/home/app/.local/share/GeradorCertificadosOnline/storage \
+  ghcr.io/academiadoprogramador-fullstack/gerador-de-certificados-2026:latest
+```
+
+A API ficará disponível em `http://localhost:8080` e o Swagger em [`http://localhost:8080/swagger`](http://localhost:8080/swagger). Os nomes de variáveis usam `__` no lugar de `:` na configuração .NET. Não use `localhost` nas connection strings para apontar a serviços que rodam fora do container: nesse caso, informe um hostname acessível pela rede Docker. Não grave o arquivo de ambiente no repositório nem passe segredos diretamente na linha de comando.
+
 ### Preparar o client
 
 Em outro terminal, na raiz do repositório:
