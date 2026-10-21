@@ -54,6 +54,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore server/src/Api/GeradorCertificadosOnline.Api.csproj
 
+      - name: Install Entity Framework CLI
+        run: dotnet tool install --global dotnet-ef
+
       - name: Restore tools
         run: dotnet tool restore --tool-manifest server/dotnet-tools.json
 
