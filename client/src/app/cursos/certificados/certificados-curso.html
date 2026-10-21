@@ -1,17 +1,17 @@
 <section aria-labelledby="certificados-curso-titulo">
   <div class="mb-6">
-    <p class="mb-2 text-sm font-semibold tracking-wide text-indigo-700">GESTÃO DA INSTITUIÇÃO</p>
-    <h1 id="certificados-curso-titulo" class="text-3xl font-semibold tracking-tight text-slate-950">
+    <p class="mb-2 text-sm font-semibold tracking-wide text-brand">GESTÃO DA INSTITUIÇÃO</p>
+    <h1 id="certificados-curso-titulo" class="text-3xl font-semibold tracking-tight text-text-strong">
       Certificados do curso
     </h1>
 
     @if (curso(); as curso) {
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <p class="mt-2 text-slate-600">{{ curso.nome }}</p>
+        <p class="mt-2 text-text-muted">{{ curso.nome }}</p>
 
         <a
           [routerLink]="['/cursos/detalhes', curso.id]"
-          class="inline-flex items-center gap-2 border border-slate-300 text-slate-700 px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+          class="inline-flex items-center gap-2 border border-border-strong text-text-subtle px-4 py-2.5 text-sm font-semibold rounded-lg hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
           <svg lucideArrowLeft class="size-4"></svg>
           Voltar para o curso</a
@@ -22,7 +22,7 @@
 
   @if (mensagemSucesso()) {
     <div
-      class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+      class="mb-5 rounded-xl border border-success-border bg-success-subtle px-4 py-3 text-sm text-success-strong"
       role="alert"
     >
       {{ mensagemSucesso() }}
@@ -31,7 +31,7 @@
 
   @if (mensagemErro()) {
     <div
-      class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
+      class="mb-5 rounded-xl border border-danger-border bg-danger-subtle px-4 py-3 text-sm text-danger-strong"
       role="alert"
     >
       {{ mensagemErro() }}
@@ -39,30 +39,30 @@
   }
 
   @if (carregando()) {
-    <p class="rounded-2xl border border-slate-200 bg-white p-6 text-slate-600" role="status">
+    <p class="rounded-2xl border border-border bg-surface p-6 text-text-muted" role="status">
       Carregando curso...
     </p>
   } @else if (curso(); as curso) {
     <form
       (submit)="solicitarGeracao($event)"
       novalidate
-      class="mb-8 spacy-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+      class="mb-8 spacy-y-4 rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-8"
     >
       <div>
-        <h2 class="text-xl font-semibold text-slate-950">Solicitar certificados</h2>
-        <p class="mt-1 text-sm text-slate-600">
+        <h2 class="text-xl font-semibold text-text-strong">Solicitar certificados</h2>
+        <p class="mt-1 text-sm text-text-muted">
           Informe um aluno por linha. Cada nome pode ter até 200 caracteres.
         </p>
       </div>
 
       <div>
-        <label for="nomes-alunos" class="mt-5 mb-1.5 block text-sm font-medium text-slate-800"
+        <label for="nomes-alunos" class="mt-5 mb-1.5 block text-sm font-medium text-text-label"
           >Nome dos alunos</label
         >
         <textarea
           id="nomes-alunos"
           rows="6"
-          class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+          class="w-full rounded-xl border border-border-strong px-3 py-2.5 text-sm outline-none focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
           placeholder="Maria Silva&#10;João Souza"
           [formField]="formulario.nomesAlunos"
           [attr.aria-invalid]="
@@ -75,7 +75,7 @@
           "
         ></textarea>
         @if (formulario.nomesAlunos().touched() && formulario.nomesAlunos().invalid()) {
-          <p id="nomes-alunos-erro" class="mt-1 text-sm text-rose-700">
+          <p id="nomes-alunos-erro" class="mt-1 text-sm text-danger-text">
             {{ formulario.nomesAlunos().errors()[0].message }}
           </p>
         }
@@ -83,7 +83,7 @@
 
       <button
         type="submit"
-        class="inline-flex items-center gap-2 mt-2 rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+        class="inline-flex items-center gap-2 mt-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-on-dark hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
         [disabled]="enviando()"
       >
         <svg lucideFileText class="size-4"></svg>
@@ -93,12 +93,12 @@
 
     @if (status(); as processamento) {
       <section
-        class="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+        class="mb-8 rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-8"
         aria-labelledby="status-titulo"
       >
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h2 id="status-titulo" class="text-xl font-semibold text-slate-950">
+            <h2 id="status-titulo" class="text-xl font-semibold text-text-strong">
               Último processamento
             </h2>
             <p>{{ processamento.status }}</p>
@@ -106,7 +106,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+            class="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-on-dark hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
           >
             <svg lucideFolderArchive class="size-4"></svg>
             Baixar ZIP
@@ -114,21 +114,21 @@
         </div>
 
         <dl class="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          <div class="rounded-xl bg-slate-50 p-4">
-            <dt class="text-sm text-slate-600">Total</dt>
+          <div class="rounded-xl bg-surface-subtle p-4">
+            <dt class="text-sm text-text-muted">Total</dt>
             <dd class="mt-1 text-xl font-semibold">{{ processamento.totalCertificados }}</dd>
           </div>
 
-          <div class="rounded-xl bg-slate-50 p-4">
-            <dt class="text-sm text-emerald-600">Gerados</dt>
-            <dd class="mt-1 text-xl font-semibold text-emerald-800">
+          <div class="rounded-xl bg-surface-subtle p-4">
+            <dt class="text-sm text-success">Gerados</dt>
+            <dd class="mt-1 text-xl font-semibold text-success-text">
               {{ processamento.gerados }}
             </dd>
           </div>
 
-          <div class="rounded-xl bg-slate-50 p-4">
-            <dt class="text-sm text-rose-600">Falhas</dt>
-            <dd class="mt-1 text-xl font-semibold text-rose-800">
+          <div class="rounded-xl bg-surface-subtle p-4">
+            <dt class="text-sm text-danger">Falhas</dt>
+            <dd class="mt-1 text-xl font-semibold text-danger-text">
               {{ processamento.falhas }}
             </dd>
           </div>
@@ -136,7 +136,7 @@
       </section>
     } @else {
       <div
-        class="mb-8 rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-slate-600"
+        class="mb-8 rounded-2xl border border-dashed border-border-strong bg-surface p-6 text-text-muted"
       >
         Este curso ainda não possui um processamento de certificados.
       </div>
@@ -144,25 +144,25 @@
 
     @if (certificados().length > 0) {
       <section aria-labelledby="lista-certificados-titulo" class="pb-8">
-        <h2 id="lista-certificados-titulo" class="mb-4 text-xl font-semibold text-slate-950">
+        <h2 id="lista-certificados-titulo" class="mb-4 text-xl font-semibold text-text-strong">
           Certificados dos alunos
         </h2>
         <ul class="space-y-3">
           @for (certificado of certificados(); track certificado.id) {
             <li
-              class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+              class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface p-5 shadow-sm"
             >
-              <span class="break-words font-medium text-slate-900">{{
+              <span class="break-words font-medium text-text">{{
                 certificado.nomeAluno
               }}</span>
               <span
                 class="rounded-full px-3 py-1 text-sm font-semibold"
-                [class.bg-emerald-50]="certificado.statusGeracao === 'Gerado'"
-                [class.text-emerald-800]="certificado.statusGeracao === 'Gerado'"
-                [class.bg-rose-50]="certificado.statusGeracao === 'Falha'"
-                [class.text-rose-800]="certificado.statusGeracao === 'Falha'"
-                [class.bg-slate-100]="certificado.statusGeracao === 'Pendente'"
-                [class.text-slate-700]="certificado.statusGeracao === 'Pendente'"
+                [class.bg-success-subtle]="certificado.statusGeracao === 'Gerado'"
+                [class.text-success-text]="certificado.statusGeracao === 'Gerado'"
+                [class.bg-danger-subtle]="certificado.statusGeracao === 'Falha'"
+                [class.text-danger-text]="certificado.statusGeracao === 'Falha'"
+                [class.bg-surface-muted]="certificado.statusGeracao === 'Pendente'"
+                [class.text-text-subtle]="certificado.statusGeracao === 'Pendente'"
                 >{{ certificado.statusGeracao }}</span
               >
             </li>

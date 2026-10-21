@@ -1,17 +1,17 @@
 <div class="mb-8">
-  <p class="mb-3 text-sm font-semibold tracking-wide text-indigo-700">ACESSO DA INSTITUIÇÃO</p>
-  <h2 #tituloPagina class="text-3xl font-semibold tracking-tight text-slate-950 focus:outline-none">
+  <p class="mb-3 text-sm font-semibold tracking-wide text-brand">ACESSO DA INSTITUIÇÃO</p>
+  <h2 #tituloPagina class="text-3xl font-semibold tracking-tight text-text-strong focus:outline-none">
     Entre na sua conta
   </h2>
 
-  <p class="mt-2 text-sm leading-6 text-slate-600">
+  <p class="mt-2 text-sm leading-6 text-text-muted">
     Acesse os cursos da sua instituição e acompanhe os certificados emitidos para seus alunos.
   </p>
 </div>
 
 @if (mensagemSucesso()) {
   <div
-    class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+    class="mb-5 rounded-xl border border-success-border bg-success-subtle px-4 py-3 text-sm text-success-strong"
     role="alert"
   >
     {{ mensagemSucesso() }}
@@ -20,7 +20,7 @@
 
 @if (mensagemErro()) {
   <div
-    class="mb-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
+    class="mb-5 rounded-xl border border-danger-border bg-danger-subtle px-4 py-3 text-sm text-danger-strong"
     role="alert"
   >
     {{ mensagemErro() }}
@@ -29,14 +29,14 @@
 
 <form (submit)="enviarFormulario($event)" novalidate class="space-y-5">
   <div>
-    <label for="login-email" class="mb-2 block text-sm font-medium text-slate-800">Email</label>
+    <label for="login-email" class="mb-2 block text-sm font-medium text-text-label">Email</label>
 
     <input
       id="login-email"
       type="email"
       autocomplete="email"
       inputmode="email"
-      class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
       placeholder="voce@exemplo.com"
       [formField]="formularioLogin.email"
       [attr.aria-invalid]="formularioLogin.email().touched() && formularioLogin.email().invalid()"
@@ -48,22 +48,22 @@
     />
 
     @if (formularioLogin.email().touched() && formularioLogin.email().invalid()) {
-      <p id="login-email-erro" class="mt-1 text-sm text-rose-700">
+      <p id="login-email-erro" class="mt-1 text-sm text-danger-text">
         {{ formularioLogin.email().errors()[0].message }}
       </p>
     }
   </div>
 
   <div>
-    <label for="login-senha" class="mb-2 block text-sm font-medium text-slate-800">Senha</label>
+    <label for="login-senha" class="mb-2 block text-sm font-medium text-text-label">Senha</label>
 
-    <span class="text-xs text-slate-500">Mínimo de 8 caracteres</span>
+    <span class="text-xs text-text-faint">Mínimo de 8 caracteres</span>
 
     <input
       id="login-senha"
       type="password"
       autocomplete="password"
-      class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 aria-[invalid=true]:border-rose-600"
+      class="w-full rounded-xl border border-border-strong bg-surface px-4 py-3 text-sm text-text-strong outline-none transition placeholder:text-text-on-dark-muted hover:border-border-muted focus:border-brand-strong focus:ring-4 focus:ring-brand-strong/15 aria-[invalid=true]:border-danger"
       placeholder="Sua senha"
       [formField]="formularioLogin.senha"
       [attr.aria-invalid]="formularioLogin.senha().touched() && formularioLogin.senha().invalid()"
@@ -75,7 +75,7 @@
     />
 
     @if (formularioLogin.senha().touched() && formularioLogin.senha().invalid()) {
-      <p id="login-senha-erro" class="mt-1 text-sm text-rose-700">
+      <p id="login-senha-erro" class="mt-1 text-sm text-danger-text">
         {{ formularioLogin.senha().errors()[0].message }}
       </p>
     }
@@ -83,7 +83,7 @@
 
   <button
     type="submit"
-    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 disabled:cursor-wait disabled:opacity-70"
+    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3.5 text-sm font-semibold text-on-dark shadow-sm transition hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-wait disabled:opacity-70"
     [disabled]="enviandoFormulario()"
     [attr.aria-busy]="enviandoFormulario()"
   >
@@ -91,11 +91,11 @@
   </button>
 </form>
 
-<p class="mt-7 text-center text-sm text-slate-600">
+<p class="mt-7 text-center text-sm text-text-muted">
   Ainda não tem uma conta?
   <a
     routerLink="/auth/cadastro"
-    class="font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-900 focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+    class="font-semibold text-brand underline decoration-brand-border underline-offset-4 hover:text-brand-active focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >Criar conta</a
   >
 </p>

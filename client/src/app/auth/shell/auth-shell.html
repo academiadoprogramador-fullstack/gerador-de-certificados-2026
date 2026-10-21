@@ -1,62 +1,62 @@
 <main
-  class="min-h-screen bg-[#f4f6fb] text-slate-900 lg:grid lg:grid-cols-[minmax(340px,0.88fr)_1.12fr]"
+  class="min-h-screen bg-page text-text lg:grid lg:grid-cols-[minmax(340px,0.88fr)_1.12fr]"
 >
   <section
-    class="relative hidden overflow-hidden bg-[#101b36] px-12 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-20"
+    class="relative hidden overflow-hidden bg-brand-ink px-12 py-10 text-on-dark lg:flex lg:flex-col lg:justify-between xl:px-20"
   >
     <div
-      class="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"
+      class="absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-brand-glow/20 blur-3xl"
       aria-hidden="true"
     ></div>
     <div
-      class="absolute -right-36 bottom-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl"
+      class="absolute -right-36 bottom-0 h-96 w-96 rounded-full bg-accent-glow/10 blur-3xl"
       aria-hidden="true"
     ></div>
     <a
       routerLink="/"
-      class="relative inline-flex items-center gap-3 self-start rounded-lg text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+      class="relative inline-flex items-center gap-3 self-start rounded-lg text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
     >
       <span
-        class="grid size-10 place-items-center rounded-xl bg-cyan-300 text-[#101b36]"
+        class="grid size-10 place-items-center rounded-xl bg-accent text-brand-ink"
         aria-hidden="true"
       >
         <svg lucideFileText class="size-6" strokeWidth="1.8"></svg>
       </span>
-      Certifica<span class="-ml-3 text-cyan-300">+</span>
+      Certifica<span class="-ml-3 text-accent">+</span>
     </a>
     <div class="relative max-w-xl py-12">
       <p
-        class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium tracking-wide text-cyan-200"
+        class="mb-5 inline-flex items-center gap-2 rounded-full border border-overlay/15 bg-overlay/5 px-3 py-1.5 text-xs font-medium tracking-wide text-accent-subtle"
       >
-        <span class="size-1.5 rounded-full bg-cyan-300" aria-hidden="true"></span>FORMAÇÃO QUE
+        <span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>FORMAÇÃO QUE
         MERECE RECONHECIMENTO
       </p>
       <h1 class="text-4xl font-semibold leading-tight tracking-tight xl:text-5xl">
         Valorize a formação dos seus alunos.
-        <span class="text-cyan-300">Certifique cada conquista.</span>
+        <span class="text-accent">Certifique cada conquista.</span>
       </h1>
-      <p class="mt-6 max-w-md text-base leading-7 text-slate-300">
+      <p class="mt-6 max-w-md text-base leading-7 text-text-on-dark-subtle">
         Organize os cursos da sua instituição e emita certificados para reconhecer o aprendizado dos
         seus alunos.
       </p>
       <div
-        class="mt-12 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-5"
+        class="mt-12 flex items-center gap-4 rounded-2xl border border-overlay/10 bg-overlay/6 p-5"
       >
         <div
-          class="grid size-12 shrink-0 place-items-center rounded-xl bg-cyan-300/15 text-cyan-200"
+          class="grid size-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent-subtle"
           aria-hidden="true"
         >
           <svg lucideAward class="size-6" strokeWidth="1.7"></svg>
         </div>
         <div>
           <p class="font-medium">Cada conclusão merece reconhecimento.</p>
-          <p class="mt-1 text-sm text-slate-400">
+          <p class="mt-1 text-sm text-text-on-dark-muted">
             Acompanhe as emissões e os certificados dos seus cursos.
           </p>
         </div>
       </div>
     </div>
-    <p class="relative text-xs text-slate-400">
+    <p class="relative text-xs text-text-on-dark-muted">
       © 2026 Certifica+. Certificados para reconhecer a formação.
     </p>
   </section>
@@ -66,21 +66,21 @@
   >
     <a
       routerLink="/"
-      class="mb-12 inline-flex items-center gap-2 self-start text-base font-semibold tracking-tight text-slate-900 lg:hidden"
+      class="mb-12 inline-flex items-center gap-2 self-start text-base font-semibold tracking-tight text-text lg:hidden"
       ><span
-        class="grid size-9 place-items-center rounded-xl bg-[#101b36] text-cyan-200"
+        class="grid size-9 place-items-center rounded-xl bg-brand-ink text-accent-subtle"
         aria-hidden="true"
         >C</span
-      >Certifica<span class="text-indigo-600">+</span></a
+      >Certifica<span class="text-brand-strong">+</span></a
     >
     <div class="mx-auto w-full max-w-md">
       <router-outlet></router-outlet>
 
-      <p class="mt-10 text-center text-xs leading-5 text-slate-500">
+      <p class="mt-10 text-center text-xs leading-5 text-text-faint">
         Ao continuar, você concorda com nossos termos de uso e política de privacidade.
       </p>
     </div>
-    <p class="mt-auto pt-10 text-center text-xs text-slate-500 lg:hidden">
+    <p class="mt-auto pt-10 text-center text-xs text-text-faint lg:hidden">
       © 2026 Certifica+. Certificados para reconhecer a formação.
     </p>
   </section>

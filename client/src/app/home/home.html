@@ -1,18 +1,18 @@
-<main class="min-h-screen bg-[#f4f6fb] text-slate-900">
+<main class="min-h-screen bg-page text-text">
   <app-navbar></app-navbar>
 
   <section class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
     @if (sessaoAutenticada(); as sessao) {
       <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
-          <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
+          <p class="mb-4 text-sm font-semibold tracking-wide text-brand">
             GESTÃO DE CURSOS E CERTIFICADOS
           </p>
-          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-text-strong sm:text-5xl">
             Reconheça a formação dos seus alunos.
           </h1>
 
-          <p class="mt-5 max-w-xl text-lg leadin-8 text-slate-600">
+          <p class="mt-5 max-w-xl text-lg leadin-8 text-text-muted">
             Cadastre os cursos da sua instituição, emita certificados para os alunos e acompanhe
             cada etapa em um só lugar.
           </p>
@@ -20,7 +20,7 @@
           <span class="flex gap-3 items-center mt-8">
             <a
               routerLink="/cursos"
-              class="inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              class="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3.5 text-sm font-semibold text-on-dark hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             >
               <svg lucideLibraryBig class="size-4"></svg>
               Acessar meus cursos
@@ -28,10 +28,10 @@
             </a>
 
             <div
-              class="inline-flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+              class="inline-flex items-center gap-3 rounded-xl border border-success-border bg-success-subtle px-4 py-3 text-sm text-success-strong"
             >
               <span
-                class="grid size-7 place-items-center rounded-full bg-emerald-100 font-bold"
+                class="grid size-7 place-items-center rounded-full bg-success-muted font-bold"
                 aria-hidden="true"
                 ><svg lucideCheck class="size-4" aria-hidden="true"></svg></span
               >Conectado como <strong class="-ml-1">{{ sessao.usuario.email }}</strong>
@@ -39,34 +39,34 @@
           </span>
         </div>
 
-        <div class="rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10">
+        <div class="rounded-3xl bg-brand-ink p-8 text-on-dark shadow-xl shadow-brand-ink/10 sm:p-10">
           <div class="mb-12 flex items-start justify-between">
             <span
-              class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-cyan-200"
+              class="rounded-full border border-overlay/15 bg-overlay/5 px-3 py-1.5 text-xs font-medium text-accent-subtle"
               >PRÓXIMA EMISSÃO</span
-            ><svg lucideSparkles class="size-6 text-cyan-300" aria-hidden="true"></svg>
+            ><svg lucideSparkles class="size-6 text-accent" aria-hidden="true"></svg>
           </div>
           <h2 class="text-2xl font-semibold">Cada curso concluído merece ser reconhecido.</h2>
-          <p class="mt-3 leading-7 text-slate-300">
+          <p class="mt-3 leading-7 text-text-on-dark-subtle">
             Estamos preparando as ferramentas para sua instituição emitir certificados e valorizar o
             percurso dos alunos.
           </p>
-          <div class="mt-8 h-1.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
-            <div class="h-full w-1/3 rounded-full bg-cyan-300"></div>
+          <div class="mt-8 h-1.5 overflow-hidden rounded-full bg-overlay/10" aria-hidden="true">
+            <div class="h-full w-1/3 rounded-full bg-accent"></div>
           </div>
-          <p class="mt-3 text-xs text-slate-400">Da conclusão do curso ao certificado</p>
+          <p class="mt-3 text-xs text-text-on-dark-muted">Da conclusão do curso ao certificado</p>
         </div>
       </div>
     } @else {
       <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
-          <p class="mb-4 text-sm font-semibold tracking-wide text-indigo-700">
+          <p class="mb-4 text-sm font-semibold tracking-wide text-brand">
             CERTIFICADOS PARA SEUS ALUNOS
           </p>
-          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+          <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-text-strong sm:text-6xl">
             Reconheça cada conquista dos seus alunos.
           </h1>
-          <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+          <p class="mt-5 max-w-xl text-lg leading-8 text-text-muted">
             Cadastre os cursos da sua instituição, emita certificados para os alunos e acompanhe
             cada etapa em um só lugar.
           </p>
@@ -74,7 +74,7 @@
           <div class="mt-8 flex flex-wrap gap-3">
             <a
               routerLink="/auth/cadastro"
-              class="inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-5 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              class="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3.5 text-sm font-semibold text-on-dark shadow-sm hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             >
               <svg lucideUserRoundPlus class="size-4"></svg>
               Cadastrar minha instituição
@@ -83,7 +83,7 @@
 
             <a
               routerLink="/auth/login"
-              class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
+              class="inline-flex items-center gap-2 rounded-xl border border-border-strong bg-surface px-5 py-3.5 text-sm font-semibold text-text-label hover:bg-surface-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             >
               <svg lucideLogIn class="size-4"></svg>
               Já tenho uma conta
@@ -92,29 +92,29 @@
         </div>
 
         <div
-          class="relative rounded-3xl bg-[#101b36] p-8 text-white shadow-xl shadow-indigo-950/10 sm:p-10"
+          class="relative rounded-3xl bg-brand-ink p-8 text-on-dark shadow-xl shadow-brand-ink/10 sm:p-10"
         >
           <div
-            class="absolute -right-5 -top-5 grid size-16 place-items-center rounded-2xl bg-cyan-300 text-[#101b36] shadow-lg"
+            class="absolute -right-5 -top-5 grid size-16 place-items-center rounded-2xl bg-accent text-brand-ink shadow-lg"
             aria-hidden="true"
           >
             <svg lucideAward class="size-8" strokeWidth="1.7"></svg>
           </div>
-          <p class="text-sm font-medium text-cyan-200">FORMAÇÃO RECONHECIDA</p>
+          <p class="text-sm font-medium text-accent-subtle">FORMAÇÃO RECONHECIDA</p>
           <h2 class="mt-6 text-3xl font-semibold leading-tight">
             Celebre o conhecimento que seus alunos conquistaram.
           </h2>
-          <p class="mt-4 leading-7 text-slate-300">
+          <p class="mt-4 leading-7 text-text-on-dark-subtle">
             Crie um acesso para sua instituição organizar cursos e emitir certificados.
           </p>
-          <div class="mt-10 flex items-center gap-4 border-t border-white/10 pt-6">
+          <div class="mt-10 flex items-center gap-4 border-t border-overlay/10 pt-6">
             <span
-              class="grid size-10 place-items-center rounded-full bg-white/10 text-cyan-200"
+              class="grid size-10 place-items-center rounded-full bg-overlay/10 text-accent-subtle"
               aria-hidden="true"
             >
               <svg lucideSparkles class="size-5"></svg>
             </span>
-            <p class="text-sm text-slate-300">Cada certificado registra uma conquista.</p>
+            <p class="text-sm text-text-on-dark-subtle">Cada certificado registra uma conquista.</p>
           </div>
         </div>
       </div>
